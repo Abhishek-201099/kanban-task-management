@@ -1,0 +1,248 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
+
+:root {
+  --color-primary: #635fc7;
+  --color-primary-light: #736fcd;
+  --color-primary-light-2: #e0dff4;
+
+  --color-secondary: #141328;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  line-height: 1;
+  font-size: 1.6rem;
+  color: var(--color-secondary);
+}
+
+.container {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+/***************************************************/
+/***************************************************/
+/***************************************************/
+/* NAVBAR */
+
+.navbar {
+  background-color: #fff;
+  padding: 1rem;
+
+  display: flex;
+}
+
+.navbar .nav-logo-container {
+  width: 15%;
+  padding: 1rem;
+
+  display: flex;
+  align-items: center;
+}
+
+.navbar .nav-items {
+  padding: 1rem 4rem;
+  width: 85%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar .nav-items .nav-board {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.navbar .nav-items .nav-board img {
+  display: none;
+}
+
+.navbar .nav-items .nav-board div {
+  cursor: pointer;
+  padding: 1rem;
+  border-radius: 0.9rem;
+  transition: all 0.3s;
+
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.navbar .nav-items .nav-board div:hover {
+  background-color: #e0dff4;
+}
+
+.navbar .nav-items .nav-board div img {
+  height: 1rem;
+}
+
+.navbar .nav-items .nav-board-name {
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: var(--color-secondary);
+  padding: 0.4rem;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navbar .nav-items .nav-btns {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+.nav-btns .btn-add-task {
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 4rem;
+  font-size: 1.8rem;
+  padding: 1rem 2rem;
+  transition: all 0.3s;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-btns .btn-add-task:hover {
+  background-color: var(--color-primary-light);
+}
+
+.nav-btns .btn-context-menu {
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 1rem;
+}
+
+/***************************************************/
+/***************************************************/
+/***************************************************/
+/* RESPONSIVE */
+
+/* 2xl */
+@media (max-width: 1536px) {
+  /* .container {
+    max-width: 1280px;
+  } */
+}
+
+/* xl */
+@media (max-width: 1280px) {
+  .navbar .nav-logo-container {
+    width: 20%;
+  }
+
+  .navbar .nav-logo-container img {
+    width: 70%;
+  }
+
+  .navbar .nav-items {
+    padding: 1rem 2rem;
+    width: 80%;
+  }
+
+  .navbar .nav-items .nav-board {
+    width: 60%;
+  }
+  .navbar .nav-items .nav-board div {
+    width: 100%;
+  }
+
+  .navbar .nav-items .nav-board-name {
+    font-size: 2rem;
+  }
+}
+
+/* lg */
+@media (max-width: 1024px) {
+  .navbar .nav-items .nav-board {
+    width: 50%;
+  }
+  .navbar .nav-items .nav-board div {
+    width: 100%;
+  }
+
+  .navbar .nav-items .nav-board-name {
+    font-size: 2rem;
+  }
+
+  .nav-btns .btn-add-task {
+    font-size: 1.4rem;
+  }
+}
+
+/* md */
+@media (max-width: 768px) {
+  .navbar .nav-logo-container {
+    display: none;
+  }
+
+  .navbar .nav-items .nav-board img {
+    display: block;
+  }
+
+  .navbar .nav-items {
+    width: 100%;
+    padding: 1rem 0rem;
+  }
+
+  .navbar .nav-items .nav-board-name {
+    font-weight: 700;
+    font-size: 2.4rem;
+  }
+
+  .navbar .nav-items .nav-btns {
+    gap: 2rem;
+  }
+
+  .nav-btns .btn-add-task {
+    padding: 0.6rem 1.8rem;
+  }
+
+  .nav-btns .btn-add-task span:nth-child(2) {
+    display: none;
+  }
+}
+
+/* sm */
+@media (max-width: 640px) {
+  /* .container {
+    max-width: 475px;
+  } */
+}
+
+/* xs */
+@media (max-width: 475px) {
+  .navbar .nav-items .nav-board-name {
+    font-size: 1.8rem;
+  }
+
+  .navbar .nav-items .nav-btns {
+    gap: 1rem;
+  }
+}
