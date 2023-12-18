@@ -6,6 +6,8 @@
   --color-primary-light-2: #e0dff4;
 
   --color-secondary: #141328;
+  --color-secondary-2: #828fa3;
+  --color-secondary-3: #efeff9;
 }
 
 *,
@@ -36,6 +38,14 @@ body {
   margin-right: auto;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+  height: 100dvh;
+
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
 }
 
 /***************************************************/
@@ -137,6 +147,120 @@ body {
   border: none;
   cursor: pointer;
   padding: 1rem;
+}
+
+/***************************************************/
+/***************************************************/
+/***************************************************/
+/* BOARD */
+.section-board {
+  height: 100%;
+  display: flex;
+}
+
+.container-aside {
+  width: 16%;
+  padding-top: 2rem;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.container-aside .aside-boards {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.aside-boards .aside-boards-count {
+  text-transform: uppercase;
+  color: var(--color-secondary-2);
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 1.2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.aside-boards-list {
+  list-style: none;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.aside-boards-list li {
+  font-weight: 700;
+  color: var(--color-secondary-2);
+  text-transform: capitalize;
+  padding: 2rem;
+  border-top-right-radius: 3rem;
+  border-bottom-right-radius: 3rem;
+  transition: all 0.3s;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.aside-boards-list li:hover {
+  background-color: var(--color-secondary-3);
+}
+
+.aside-boards-list li:hover .aside-board-name {
+  color: var(--color-primary-light);
+}
+
+.aside-boards-list li.active-board {
+  background-color: var(--color-primary-light);
+  color: #fff;
+}
+
+.aside-boards-list li.active-board:hover {
+  background-color: var(--color-secondary-3);
+  color: var(--color-primary-light);
+}
+
+.aside-boards-list ul span img {
+  height: 100%;
+}
+
+.aside-add-board {
+  font-weight: 700;
+  color: var(--color-primary-light);
+  text-transform: capitalize;
+  padding: 2rem;
+  border-top-right-radius: 3rem;
+  border-bottom-right-radius: 3rem;
+  transition: all 0.3s;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.aside-add-board:hover {
+  background-color: var(--color-secondary-3);
+}
+
+.aside-add-board span img {
+  height: 100%;
+  accent-color: var(--color-primary-light);
+}
+
+.aside-toggles {
+  margin-top: auto;
+  margin-bottom: 8rem;
+}
+
+.container-board {
+  flex: 1;
+  padding: 1rem 2rem;
+  background-color: var(--color-secondary-3);
 }
 
 /***************************************************/
