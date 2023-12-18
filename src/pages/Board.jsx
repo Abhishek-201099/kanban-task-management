@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { getBoards } from "../features/Boards/boardSlice";
 
-const boardsArray = ["Platform launch", "Marketing Plan", "Roadmap"];
+// const boardsArray = ["Platform launch", "Marketing Plan", "Roadmap"];
 
 export default function Board() {
   const [activeBoard, setIsActiveBoard] = useState(0);
+  const boardsArray = useSelector(getBoards);
 
   return (
     <section className="section-board">
@@ -15,14 +18,14 @@ export default function Board() {
           <ul className="aside-boards-list">
             {boardsArray.map((board, index) => (
               <li
-                key={board}
+                key={board.boardName}
                 onClick={() => setIsActiveBoard(index)}
                 className={`${index === activeBoard ? "active-board" : ""}`}
               >
                 <span>
                   <img src="/icon-board.svg" alt="board icon" />
                 </span>
-                <span className="aside-board-name">{board}</span>
+                <span className="aside-board-name">{board.boardName}</span>
               </li>
             ))}
           </ul>

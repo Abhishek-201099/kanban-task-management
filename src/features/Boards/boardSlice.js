@@ -7,63 +7,12 @@ const initialBoardState = {
       boardColumns: [
         {
           columnName: "Todo",
-          columnTasks: [
-            {
-              taskName: "Sample Task 1",
-              taskDescription: "Sample description",
-              subTasks: ["Sample subtask 1", "Sample subtask 2"],
-            },
-            {
-              taskName: "Sample Task 2",
-              taskDescription: "Sample description",
-              subTasks: ["Sample subtask 1", "Sample subtask 2"],
-            },
-            {
-              taskName: "Sample Task 3",
-              taskDescription: "Sample description",
-              subTasks: ["Sample subtask 1", "Sample subtask 2"],
-            },
-          ],
         },
         {
           columnName: "Doing",
-          columnTasks: [
-            {
-              taskName: "Sample Task 1",
-              taskDescription: "Sample description",
-              subTasks: ["Sample subtask 1", "Sample subtask 2"],
-            },
-            {
-              taskName: "Sample Task 2",
-              taskDescription: "Sample description",
-              subTasks: ["Sample subtask 1", "Sample subtask 2"],
-            },
-            {
-              taskName: "Sample Task 3",
-              taskDescription: "Sample description",
-              subTasks: ["Sample subtask 1", "Sample subtask 2"],
-            },
-          ],
         },
         {
           columnName: "Done",
-          columnTasks: [
-            {
-              taskName: "Sample Task 1",
-              taskDescription: "Sample description",
-              subTasks: ["Sample subtask 1", "Sample subtask 2"],
-            },
-            {
-              taskName: "Sample Task 2",
-              taskDescription: "Sample description",
-              subTasks: ["Sample subtask 1", "Sample subtask 2"],
-            },
-            {
-              taskName: "Sample Task 3",
-              taskDescription: "Sample description",
-              subTasks: ["Sample subtask 1", "Sample subtask 2"],
-            },
-          ],
         },
       ],
     },
@@ -111,9 +60,35 @@ const boardSlice = createSlice({
         if (colToUpdate) colToUpdate.columnName = action.payload.newColName;
       }
     },
+    deleteBoardColumn(state, action) {
+      const boardToUpdate = state.boardsData.find(
+        (board) => board.boardName === action.payload.currentBoard
+      );
+      if (boardToUpdate) {
+        boardToUpdate.boardColumns = boardToUpdate.boardColumns.filter(
+          (col) => col.columnName !== action.payload.colToDelete
+        );
+      }
+    },
+    deleteBoard(state, action) {
+      state.boardsData = state.boardsData.filter(
+        (board) => board.boardName !== action.payload.currentBoard
+      );
+    },
   },
 });
 
-export const { addBoard } = boardSlice.actions;
+export const {
+  addBoard,
+  addBoardColumn,
+  updateBoardName,
+  updateBoardColumnName,
+  deleteBoardColumn,
+  deleteBoard,
+} = boardSlice.actions;
 
 export default boardSlice.reducer;
+
+export function getBoards(state) {
+  return state.boards.boardsData;
+}
