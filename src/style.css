@@ -312,7 +312,7 @@ main {
 
 .column-list {
   padding: 0.1rem;
-  height: 15rem;
+  max-height: 15rem;
   overflow-y: scroll;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none;
