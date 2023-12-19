@@ -1,6 +1,6 @@
 import { useFieldArray, useForm } from "react-hook-form";
 
-export default function CreateBoardForm() {
+export default function CreateBoardForm({ isOpenModal, mainEl }) {
   const {
     register,
     control,
@@ -27,9 +27,15 @@ export default function CreateBoardForm() {
     reset();
   }
 
+  if (!isOpenModal) return null;
+
   return (
     <div className="modal">
-      <form onSubmit={handleSubmit(onSubmit)} className="create-board-form">
+      <form
+        ref={mainEl}
+        onSubmit={handleSubmit(onSubmit)}
+        className="create-board-form"
+      >
         <p className="board-form-heading">Add new board</p>
         <div className="board-form-name">
           <label htmlFor="boardName">Board Name</label>

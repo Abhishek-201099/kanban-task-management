@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { getBoards } from "../features/Boards/boardSlice";
 import CreateBoardForm from "../features/Boards/createBoardForm";
@@ -8,6 +8,22 @@ import CreateBoardForm from "../features/Boards/createBoardForm";
 export default function Board() {
   const [activeBoard, setIsActiveBoard] = useState(0);
   const boardsArray = useSelector(getBoards);
+
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const ref = useRef();
+
+  useEffect(function () {
+    function handleClick(e) {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setIsOpenModal(false);
+      }
+    }
+
+    document.addEventListener("click", handleClick, true);
+
+    return () => document.removeEventListener("click", handleClick, true);
+  }, []);
 
   return (
     <section className="section-board">
@@ -30,7 +46,7 @@ export default function Board() {
               </li>
             ))}
           </ul>
-          <p className="aside-add-board">
+          <p className="aside-add-board" onClick={() => setIsOpenModal(true)}>
             <span>
               <img src="/icon-board.svg" alt="board icon" />
             </span>
@@ -38,7 +54,7 @@ export default function Board() {
           </p>
         </div>
 
-        <CreateBoardForm />
+        <CreateBoardForm isOpenModal={isOpenModal} mainEl={ref} />
 
         <div className="aside-toggles">
           <div className="aside-toggle-darkmode">darkmodetoggle</div>
