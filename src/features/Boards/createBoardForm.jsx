@@ -18,12 +18,12 @@ export default function CreateBoardForm({
   } = useForm({
     defaultValues: {
       boardName: "",
-      columns: [{ name: "Todo" }, { name: "Doing" }],
+      boardColumns: [{ columnName: "Todo" }, { columnName: "Doing" }],
     },
   });
 
   const { append, remove, fields } = useFieldArray({
-    name: "columns",
+    name: "boardColumns",
     control,
     rules: {
       required: "Add at least one column",
@@ -38,8 +38,8 @@ export default function CreateBoardForm({
   );
 
   function onSubmit(data) {
-    console.log("formData : ", data);
-    const { boardName, columns } = data;
+    const { boardName, boardColumns } = data;
+    dispatch(addBoard({ boardName, boardColumns }));
     reset();
     setIsOpenModal(false);
   }
@@ -78,11 +78,11 @@ export default function CreateBoardForm({
                 <div className="column-item-input">
                   <input
                     type="text"
-                    {...register(`columns.${index}.name`, {
+                    {...register(`boardColumns.${index}.columnName`, {
                       required: "This field is required",
                     })}
                     className={`${
-                      errors?.columns?.[index]?.name?.message
+                      errors?.boardColumns?.[index]?.columnName?.message
                         ? "board-input-error"
                         : ""
                     }`}
@@ -93,16 +93,18 @@ export default function CreateBoardForm({
                     <img src="/icon-cross.svg" alt="remove icon" />
                   </button>
                 </div>
-                {errors?.columns?.[index]?.name?.message && (
+                {errors?.boardColumns?.[index]?.columnName?.message && (
                   <p className="board-form-error margin-top">
-                    {errors?.columns?.[index]?.name?.message}
+                    {errors?.boardColumns?.[index]?.columnName?.message}
                   </p>
                 )}
               </div>
             ))}
           </div>
-          {errors?.columns?.root?.message && (
-            <p className="board-form-error">{errors?.columns?.root?.message}</p>
+          {errors?.boardColumns?.root?.message && (
+            <p className="board-form-error">
+              {errors?.boardColumns?.root?.message}
+            </p>
           )}
         </div>
 
@@ -110,7 +112,7 @@ export default function CreateBoardForm({
           <button
             className="board-form-append"
             type="button"
-            onClick={() => append({ name: "" })}
+            onClick={() => append({ columnName: "" })}
           >
             + Add New Column
           </button>
