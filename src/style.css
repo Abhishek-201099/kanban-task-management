@@ -304,6 +304,34 @@ main {
   gap: 1.2rem;
 }
 
+.board-form-columns {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.column-list {
+  padding: 0.1rem;
+  height: 15rem;
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.column-list::-webkit-scrollbar {
+  /* WebKit */
+  width: 0;
+  height: 0;
+}
+
+.column-list div div {
+  width: 100%;
+}
+
 .board-form-columns label,
 .board-form-name label {
   font-size: 1.4rem;
@@ -313,7 +341,7 @@ main {
 
 .board-form-columns div input,
 .board-form-name input {
-  border: 1px solid #eee;
+  border: 1px solid #ddd;
   padding: 1.2rem;
   border-radius: 0.5rem;
   color: var(--color-secondary);
@@ -328,12 +356,6 @@ main {
 .board-form-name input::placeholder {
   color: #ccc;
   letter-spacing: 1px;
-}
-
-.board-form-columns {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
 }
 
 .board-form-columns div div {

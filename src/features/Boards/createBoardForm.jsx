@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 
 export default function CreateBoardForm({ isOpenModal, mainEl }) {
@@ -21,6 +22,13 @@ export default function CreateBoardForm({ isOpenModal, mainEl }) {
       required: "Add at least one column",
     },
   });
+
+  useEffect(
+    function () {
+      reset();
+    },
+    [isOpenModal, reset]
+  );
 
   function onSubmit(data) {
     console.log("formData : ", data);
@@ -55,33 +63,35 @@ export default function CreateBoardForm({ isOpenModal, mainEl }) {
 
         <div className="board-form-columns">
           <label>Board Column</label>
-          {fields.map((column, index) => (
-            <div key={column.id}>
-              <div>
-                <input
-                  type="text"
-                  {...register(`columns.${index}.name`, {
-                    required: "This field is required",
-                  })}
-                  className={`${
-                    errors?.columns?.[index]?.name?.message
-                      ? "board-input-error"
-                      : ""
-                  }`}
-                  defaultValue=""
-                  placeholder={`Column name ${index + 1}`}
-                />
-                <button type="button" onClick={() => remove(index)}>
-                  <img src="/icon-cross.svg" alt="remove icon" />
-                </button>
+          <div className="column-list">
+            {fields.map((column, index) => (
+              <div key={column.id}>
+                <div>
+                  <input
+                    type="text"
+                    {...register(`columns.${index}.name`, {
+                      required: "This field is required",
+                    })}
+                    className={`${
+                      errors?.columns?.[index]?.name?.message
+                        ? "board-input-error"
+                        : ""
+                    }`}
+                    defaultValue=""
+                    placeholder={`Column name ${index + 1}`}
+                  />
+                  <button type="button" onClick={() => remove(index)}>
+                    <img src="/icon-cross.svg" alt="remove icon" />
+                  </button>
+                </div>
+                {errors?.columns?.[index]?.name?.message && (
+                  <p className="board-form-error margin-top">
+                    {errors?.columns?.[index]?.name?.message}
+                  </p>
+                )}
               </div>
-              {errors?.columns?.[index]?.name?.message && (
-                <p className="board-form-error margin-top">
-                  {errors?.columns?.[index]?.name?.message}
-                </p>
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
           {errors?.columns?.root?.message && (
             <p className="board-form-error">{errors?.columns?.root?.message}</p>
           )}
