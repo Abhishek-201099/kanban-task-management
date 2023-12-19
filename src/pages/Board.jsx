@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { getBoards } from "../features/Boards/boardSlice";
+import CreateBoardForm from "../features/Boards/createBoardForm";
 
 // const boardsArray = ["Platform launch", "Marketing Plan", "Roadmap"];
 
@@ -36,6 +37,8 @@ export default function Board() {
             <span>+ Create New Board</span>
           </p>
         </div>
+
+        <CreateBoardForm />
 
         <div className="aside-toggles">
           <div className="aside-toggle-darkmode">darkmodetoggle</div>
