@@ -1,7 +1,14 @@
 import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { addBoard } from "./boardSlice";
 
-export default function CreateBoardForm({ isOpenModal, mainEl }) {
+export default function CreateBoardForm({
+  isOpenModal,
+  mainEl,
+  setIsOpenModal,
+}) {
+  const dispatch = useDispatch();
   const {
     register,
     control,
@@ -32,7 +39,9 @@ export default function CreateBoardForm({ isOpenModal, mainEl }) {
 
   function onSubmit(data) {
     console.log("formData : ", data);
+    const { boardName, columns } = data;
     reset();
+    setIsOpenModal(false);
   }
 
   if (!isOpenModal) return null;
@@ -65,8 +74,8 @@ export default function CreateBoardForm({ isOpenModal, mainEl }) {
           <label>Board Column</label>
           <div className="column-list">
             {fields.map((column, index) => (
-              <div key={column.id}>
-                <div>
+              <div key={column.id} className="column-list-item">
+                <div className="column-item-input">
                   <input
                     type="text"
                     {...register(`columns.${index}.name`, {

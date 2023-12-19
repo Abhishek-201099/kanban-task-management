@@ -54,7 +54,11 @@ export default function Board() {
           </p>
         </div>
 
-        <CreateBoardForm isOpenModal={isOpenModal} mainEl={ref} />
+        <CreateBoardForm
+          isOpenModal={isOpenModal}
+          mainEl={ref}
+          setIsOpenModal={setIsOpenModal}
+        />
 
         <div className="aside-toggles">
           <div className="aside-toggle-darkmode">darkmodetoggle</div>
