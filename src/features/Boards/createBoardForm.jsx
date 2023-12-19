@@ -76,7 +76,7 @@ export default function CreateBoardForm({ isOpenModal, mainEl }) {
                 </button>
               </div>
               {errors?.columns?.[index]?.name?.message && (
-                <p className="board-form-error">
+                <p className="board-form-error margin-top">
                   {errors?.columns?.[index]?.name?.message}
                 </p>
               )}
