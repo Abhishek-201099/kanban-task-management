@@ -6,33 +6,18 @@ import {
   setCurrentOpenBoard,
 } from "./boardSlice";
 import { useDispatch } from "react-redux";
-import { useEffect, useRef } from "react";
+import useOutsideClick from "../../hooks/useOutsideClick";
 
 export default function BoardDeleteForm({ setIsOpenBoardDeleteModal }) {
   const dispatch = useDispatch();
   const currentBoard = useSelector(getCurrentOpenBoard);
   const boardsArray = useSelector(getBoards);
-  const ref = useRef();
 
-  useEffect(function () {
-    function handleClick(e) {
-      if (ref.current && !ref.current.contains(e.target)) {
-        setIsOpenBoardDeleteModal(false);
-      }
-    }
+  const ref = useOutsideClick(handleOutsideClick, true);
 
-    function handleKeyDown(e) {
-      if (e.key === "Escape") setIsOpenBoardDeleteModal(false);
-    }
-
-    document.addEventListener("keydown", handleKeyDown);
-    document.addEventListener("click", handleClick, true);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("click", handleClick, true);
-    };
-  });
+  function handleOutsideClick() {
+    setIsOpenBoardDeleteModal(false);
+  }
 
   function handleBoardDelete() {
     dispatch(deleteBoard({ currentBoard }));

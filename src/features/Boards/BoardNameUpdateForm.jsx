@@ -1,7 +1,8 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { updateBoardName } from "./boardSlice";
+import useOutsideClick from "../../hooks/useOutsideClick";
 
 export default function BoardNameUpdateForm({
   isOpenBoardNameModal,
@@ -9,7 +10,6 @@ export default function BoardNameUpdateForm({
   setIsOpenBoardNameModal,
 }) {
   const dispatch = useDispatch();
-  const ref = useRef();
   const {
     register,
     handleSubmit,
@@ -17,25 +17,7 @@ export default function BoardNameUpdateForm({
     reset,
   } = useForm();
 
-  useEffect(function () {
-    function handleClick(e) {
-      if (ref.current && !ref.current.contains(e.target)) {
-        setIsOpenBoardNameModal(false);
-      }
-    }
-
-    function handleKeyDown(e) {
-      if (e.key === "Escape") setIsOpenBoardNameModal(false);
-    }
-
-    document.addEventListener("keydown", handleKeyDown);
-    document.addEventListener("click", handleClick, true);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("click", handleClick, true);
-    };
-  });
+  const ref = useOutsideClick(handleOutsideClick, true);
 
   useEffect(
     function () {
@@ -43,6 +25,10 @@ export default function BoardNameUpdateForm({
     },
     [isOpenBoardNameModal, reset]
   );
+
+  function handleOutsideClick() {
+    setIsOpenBoardNameModal(false);
+  }
 
   function onSubmit(data) {
     const { newBoardName } = data;
