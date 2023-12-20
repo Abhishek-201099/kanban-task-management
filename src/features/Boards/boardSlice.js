@@ -17,6 +17,7 @@ const initialBoardState = {
       ],
     },
   ],
+  currentBoard: "",
 };
 
 const boardSlice = createSlice({
@@ -46,7 +47,10 @@ const boardSlice = createSlice({
       const boardToUpdate = state.boardsData.find(
         (board) => board.boardName === action.payload.prevBoardName
       );
-      if (boardToUpdate) boardToUpdate.boardName = action.payload.newBoardName;
+      if (boardToUpdate) {
+        boardToUpdate.boardName = action.payload.newBoardName;
+        state.currentBoard = action.payload.newBoardName;
+      }
     },
     updateBoardColumnName(state, action) {
       const boardToUpdate = state.boardsData.find(
@@ -75,6 +79,9 @@ const boardSlice = createSlice({
         (board) => board.boardName !== action.payload.currentBoard
       );
     },
+    setCurrentOpenBoard(state, action) {
+      state.currentBoard = action.payload.currentBoard;
+    },
   },
 });
 
@@ -85,10 +92,15 @@ export const {
   updateBoardColumnName,
   deleteBoardColumn,
   deleteBoard,
+  setCurrentOpenBoard,
 } = boardSlice.actions;
 
 export default boardSlice.reducer;
 
 export function getBoards(state) {
   return state.boards.boardsData;
+}
+
+export function getCurrentOpenBoard(state) {
+  return state.boards.currentBoard;
 }

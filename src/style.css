@@ -275,6 +275,7 @@ main {
   right: 0;
   bottom: 0;
   backdrop-filter: blur(0.2rem);
+  background-color: rgba(0, 0, 0, 0.5);
 
   display: flex;
   justify-content: center;
@@ -419,6 +420,177 @@ main {
 
 .margin-top {
   margin-top: 1rem !important;
+}
+
+/***************************************************/
+/***************************************************/
+/***************************************************/
+/* CONTEXT MENU */
+
+.navbar-context-menu {
+  background-color: #fff;
+  position: absolute;
+  border-radius: 6px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  /* gap: 2rem; */
+}
+
+.navbar-context-item {
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  padding: 1.4rem 2rem;
+
+  cursor: pointer;
+  color: var(--color-secondary);
+}
+
+.navbar-context-item:hover {
+  background-color: var(--color-secondary-3);
+}
+
+.navbar-context-item:last-child {
+  color: #ea5555;
+}
+
+/***************************************************/
+/***************************************************/
+/***************************************************/
+/* BOARD NAME UPDATE FORM */
+.boardName-update-form {
+  background-color: #fff;
+  padding: 2rem;
+  width: 40rem;
+  border-radius: 6px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.boardName-update-form label {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--color-secondary-2);
+}
+
+.boardName-update-form .boardName-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.boardName-input-container input {
+  border: 1px solid #ddd;
+  padding: 1.2rem;
+  border-radius: 0.5rem;
+  color: var(--color-secondary);
+}
+
+.boardName-input-container input:focus {
+  outline: 1px solid var(--color-primary-light);
+}
+
+.boardName-input-container input::placeholder {
+  color: #ccc;
+  letter-spacing: 1px;
+}
+
+.boardName-input-container p {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #ea5555;
+}
+
+.boardName-input-error {
+  outline: 1px solid #ea5555;
+}
+
+.boardName-input-error:focus {
+  outline: 1px solid #ea5555 !important;
+}
+
+.boardName-update-form button {
+  border: none;
+  background-color: var(--color-primary);
+  color: #fff;
+  padding: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 2rem;
+  cursor: pointer;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  transition: all 0.3s;
+}
+
+.boardName-update-form button:hover {
+  background-color: var(--color-primary-light);
+}
+
+/***************************************************/
+/***************************************************/
+/***************************************************/
+/* BOARD DELETE FORM */
+
+.boardDelete-form-container {
+  background-color: #fff;
+  width: 50rem;
+  padding: 2rem 4rem;
+  border-radius: 6px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.boardDelete-form-container p {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 1.6;
+  color: var(--color-secondary);
+}
+
+.boardDelete-btns {
+  align-self: center;
+
+  display: flex;
+  gap: 4rem;
+}
+
+.boardDelete-btns button {
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  border: none;
+  font-size: 1.6rem;
+  font-weight: 600;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.boardDelete-btns button:first-child {
+  background-color: #ea5555;
+  color: #fff;
+}
+
+.boardDelete-btns button:first-child:hover {
+  background-color: #ec6666;
+}
+
+.boardDelete-btns button:last-child {
+  border: 1px solid #ddd;
+  background-color: #fff;
+}
+
+.boardDelete-btns button:last-child:hover {
+  background-color: #eee;
 }
 
 /***************************************************/

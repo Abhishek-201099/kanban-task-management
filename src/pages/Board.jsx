@@ -1,17 +1,26 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { getBoards } from "../features/Boards/boardSlice";
+import { getBoards, setCurrentOpenBoard } from "../features/Boards/boardSlice";
 import CreateBoardForm from "../features/Boards/createBoardForm";
+import { useDispatch } from "react-redux";
 
 // const boardsArray = ["Platform launch", "Marketing Plan", "Roadmap"];
 
 export default function Board() {
-  const [activeBoard, setIsActiveBoard] = useState(0);
+  const dispatch = useDispatch();
   const boardsArray = useSelector(getBoards);
-
+  const [activeBoard, setIsActiveBoard] = useState(0);
+  const [currentBoard, setCurrentBoard] = useState(boardsArray[0].boardName);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const ref = useRef();
+
+  useEffect(
+    function () {
+      dispatch(setCurrentOpenBoard({ currentBoard }));
+    },
+    [currentBoard, dispatch]
+  );
 
   useEffect(function () {
     function handleClick(e) {
@@ -20,9 +29,17 @@ export default function Board() {
       }
     }
 
-    document.addEventListener("click", handleClick, true);
+    function handleKeyDown(e) {
+      if (e.key === "Escape") setIsOpenModal(false);
+    }
 
-    return () => document.removeEventListener("click", handleClick, true);
+    document.addEventListener("click", handleClick, true);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("click", handleClick, true);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   return (
@@ -36,7 +53,10 @@ export default function Board() {
             {boardsArray.map((board, index) => (
               <li
                 key={board.boardName}
-                onClick={() => setIsActiveBoard(index)}
+                onClick={() => {
+                  setCurrentBoard(board.boardName);
+                  setIsActiveBoard(index);
+                }}
                 className={`${index === activeBoard ? "active-board" : ""}`}
               >
                 <span>
