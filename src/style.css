@@ -36,8 +36,8 @@ body {
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  /* padding-left: 0.5rem;
+  padding-right: 0.5rem; */
   height: 100dvh;
   position: relative;
 
@@ -46,6 +46,7 @@ body {
 }
 
 main {
+  position: relative;
   flex: 1;
 }
 
@@ -267,15 +268,132 @@ main {
 /***************************************************/
 /***************************************************/
 /***************************************************/
+/* MODAL DROPDOWN MENU */
+.modal-dropdown {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(0.2rem);
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.dropdown-container {
+  background-color: #fff;
+  width: 70%;
+  border-radius: 6px;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  padding-right: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.dropdown-board-count {
+  text-transform: uppercase;
+  color: var(--color-secondary-2);
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 1.2rem;
+  padding-left: 2rem;
+}
+
+.dropdown-board-list {
+  list-style: none;
+  /* background-color: #eee; */
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.dropdown-board-list li {
+  font-weight: 700;
+  color: var(--color-secondary-2);
+  text-transform: capitalize;
+  padding: 2rem;
+  border-top-right-radius: 3rem;
+  border-bottom-right-radius: 3rem;
+  transition: all 0.3s;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dropdown-board-list li:hover {
+  background-color: var(--color-secondary-3);
+}
+
+.dropdown-board-list li:hover .dropdown-board-name {
+  color: var(--color-primary-light);
+}
+
+.dropdown-board-list li.active-board {
+  background-color: var(--color-primary-light);
+  color: #fff;
+}
+
+.dropdown-board-list li.active-board:hover {
+  background-color: var(--color-secondary-3);
+  color: var(--color-primary-light);
+}
+
+.dropdown-board-list ul span img {
+  height: 100%;
+}
+
+.dropdown-add-board {
+  font-weight: 700;
+  color: var(--color-primary-light);
+  text-transform: capitalize;
+  padding: 2rem;
+  border-top-right-radius: 3rem;
+  border-bottom-right-radius: 3rem;
+  transition: all 0.3s;
+  cursor: pointer;
+  margin-top: -1rem;
+
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dropdown-add-board:hover {
+  background-color: var(--color-secondary-3);
+}
+
+.dropdown-add-board span img {
+  height: 100%;
+  accent-color: var(--color-primary-light);
+}
+
+.dropdown-toggle {
+  padding: 2rem;
+}
+
+/***************************************************/
+/***************************************************/
+/***************************************************/
 /* CREATE BOARD FORM */
 .modal {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   backdrop-filter: blur(0.2rem);
   background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
 
   display: flex;
   justify-content: center;
@@ -434,6 +552,7 @@ main {
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   overflow: hidden;
+  z-index: 1;
 
   display: flex;
   flex-direction: column;
@@ -635,7 +754,7 @@ main {
 /* lg */
 @media (max-width: 1024px) {
   .navbar .nav-items .nav-board {
-    width: 50%;
+    width: 40%;
   }
   .navbar .nav-items .nav-board div {
     width: 100%;
@@ -680,6 +799,10 @@ main {
 
   .nav-btns .btn-add-task span:nth-child(2) {
     display: none;
+  }
+
+  .modal-dropdown {
+    visibility: unset;
   }
 }
 

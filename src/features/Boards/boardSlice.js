@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialBoardState = {
   boardsData: [
     {
-      boardName: "Sample Board 1",
+      boardName: "Sample Board",
       boardColumns: [
         {
           columnName: "Todo",
@@ -17,7 +17,7 @@ const initialBoardState = {
       ],
     },
   ],
-  currentBoard: "",
+  currentBoard: "Sample Board",
 };
 
 const boardSlice = createSlice({
@@ -78,6 +78,7 @@ const boardSlice = createSlice({
       state.boardsData = state.boardsData.filter(
         (board) => board.boardName !== action.payload.currentBoard
       );
+      state.currentBoard = state.boardsData.at(0).boardName;
     },
     setCurrentOpenBoard(state, action) {
       state.currentBoard = action.payload.currentBoard;

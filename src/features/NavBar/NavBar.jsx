@@ -10,8 +10,9 @@ import NavLogo from "./NavLogo";
 import NavBtns from "./NavBtns";
 import NavContextMenuList from "./NavContextMenuList";
 import NavContextMenuItem from "./NavContextMenuItem";
+import { useEffect } from "react";
 
-export default function NavBar() {
+export default function NavBar({ isOpenDropDown, setIsOpenDropDown }) {
   const {
     isBoardMenu,
     setIsBoardMenu,
@@ -28,6 +29,13 @@ export default function NavBar() {
 
   const ref = useOutsideClick(handleOutsideClick);
 
+  useEffect(
+    function () {
+      if (!isOpenDropDown) setIsBoardMenu(false);
+    },
+    [isOpenDropDown, setIsBoardMenu]
+  );
+
   function handleOutsideClick() {
     setIsOpenContextMenu(false);
   }
@@ -39,7 +47,13 @@ export default function NavBar() {
       <div className="nav-items">
         <div className="nav-board">
           <img src="/logo-mobile.svg" alt="kanban task management logo" />
-          <div onClick={() => setIsBoardMenu((isBoardMenu) => !isBoardMenu)}>
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsOpenDropDown((isOpenDropDown) => !isOpenDropDown);
+              setIsBoardMenu((isBoardMenu) => !isBoardMenu);
+            }}
+          >
             <p className="nav-board-name">{currentBoard}</p>
             {!isBoardMenu ? (
               <img src="/icon-chevron-down.svg" alt="board menu toggle" />

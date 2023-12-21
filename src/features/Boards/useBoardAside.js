@@ -12,7 +12,7 @@ export default function useBoardAside() {
   const dispatch = useDispatch();
   const boardsArray = useSelector(getBoards);
   const currentOpenBoard = useSelector(getCurrentOpenBoard);
-  const [currentBoard, setCurrentBoard] = useState(boardsArray[0].boardName);
+  const [currentBoard, setCurrentBoard] = useState(currentOpenBoard);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   useEffect(
