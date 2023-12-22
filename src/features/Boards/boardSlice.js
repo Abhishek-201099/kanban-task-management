@@ -102,6 +102,13 @@ export function getBoards(state) {
   return state.boards.boardsData;
 }
 
+export function getCurrentOpenBoardData(state) {
+  const board = state.boards.boardsData.find(
+    (boards) => boards.boardName === state.boards.currentBoard
+  );
+  return board;
+}
+
 export function getCurrentOpenBoard(state) {
   return state.boards.currentBoard;
 }

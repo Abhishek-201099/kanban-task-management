@@ -8,6 +8,7 @@ export default function useNavbar() {
   const [isOpenContextMenu, setIsOpenContextMenu] = useState(false);
   const [isOpenBoardNameModal, setIsOpenBoardNameModal] = useState(false);
   const [isOpenBoardDeleteModal, setIsOpenBoardDeleteModal] = useState(false);
+  const [isOpenAddTaskForm, setIsOpenAddTaskForm] = useState(false);
   const currentBoard = useSelector(getCurrentOpenBoard);
 
   function handleContextMenuToggle(e) {
@@ -32,5 +33,7 @@ export default function useNavbar() {
     setIsOpenBoardDeleteModal,
     currentBoard,
     handleContextMenuToggle,
+    isOpenAddTaskForm,
+    setIsOpenAddTaskForm,
   };
 }

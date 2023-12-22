@@ -11,6 +11,7 @@ import NavBtns from "./NavBtns";
 import NavContextMenuList from "./NavContextMenuList";
 import NavContextMenuItem from "./NavContextMenuItem";
 import { useEffect } from "react";
+import TaskAddForm from "../Tasks/taskAddForm";
 
 export default function NavBar({ isOpenDropDown, setIsOpenDropDown }) {
   const {
@@ -25,6 +26,8 @@ export default function NavBar({ isOpenDropDown, setIsOpenDropDown }) {
     setIsOpenBoardDeleteModal,
     currentBoard,
     handleContextMenuToggle,
+    isOpenAddTaskForm,
+    setIsOpenAddTaskForm,
   } = useNavbar();
 
   const ref = useOutsideClick(handleOutsideClick);
@@ -64,12 +67,20 @@ export default function NavBar({ isOpenDropDown, setIsOpenDropDown }) {
         </div>
 
         <NavBtns>
-          <button className="btn-add-task">
+          <button
+            className="btn-add-task"
+            onClick={() =>
+              setIsOpenAddTaskForm((isOpenAddTaskForm) => !isOpenAddTaskForm)
+            }
+          >
             <span>
               <IoMdAdd />
             </span>
             <span>Add New Task</span>
           </button>
+          {isOpenAddTaskForm && (
+            <TaskAddForm setIsOpenAddTaskForm={setIsOpenAddTaskForm} />
+          )}
 
           <NavMenu handleContextMenuToggle={handleContextMenuToggle}>
             {isOpenContextMenu && (
