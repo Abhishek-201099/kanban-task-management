@@ -42,12 +42,13 @@ export default function TaskAddForm({ setIsOpenAddTaskForm }) {
     <div className="modal">
       <div ref={ref} className="taskaddform-container">
         <form className="task-add-form" onSubmit={handleSubmit(onSubmit)}>
-          <p className="task-form-heading">Add new task</p>
+          <p className="task-form-heading margin-bottom">Add new task</p>
           <div className="task-form-name">
             <label htmlFor="taskName">Task Name</label>
             <input
               type="text"
               id="taskName"
+              placeholder="e.g. Send mail "
               className={`${
                 errors?.taskName?.message ? "board-input-error" : ""
               }`}
@@ -99,7 +100,7 @@ export default function TaskAddForm({ setIsOpenAddTaskForm }) {
                       }`}
                     />
                     <button type="button" onClick={() => remove(index)}>
-                      X
+                      <img src="/icon-cross.svg" alt="remove icon" />
                     </button>
                   </div>
                   {errors?.subtasks?.[index]?.subtaskName?.message && (
@@ -137,7 +138,9 @@ export default function TaskAddForm({ setIsOpenAddTaskForm }) {
             </select>
           </div>
 
-          <button type="submit">Create new task</button>
+          <button className="task-form-submit" type="submit">
+            Create new task
+          </button>
         </form>
       </div>
     </div>

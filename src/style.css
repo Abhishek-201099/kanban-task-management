@@ -488,6 +488,7 @@ main {
   padding: 1.2rem;
   border-radius: 0.5rem;
   color: var(--color-secondary);
+  font-family: inherit;
 }
 
 .board-form-columns label,
@@ -732,6 +733,164 @@ main {
 .taskaddform-container {
   background-color: #fff;
   overflow-y: auto;
+  max-height: 95%;
+  padding: 4rem 3rem;
+  width: 50rem;
+  border-radius: 6px;
+
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+}
+
+.taskaddform-container::-webkit-scrollbar {
+  /* WebKit */
+  width: 5px;
+  background-color: #fff;
+}
+
+.taskaddform-container::-webkit-scrollbar-thumb {
+  background-color: var(--color-secondary-2);
+}
+
+.task-add-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.task-form-heading {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+}
+
+.task-form-description textarea {
+  min-width: 100%;
+  max-width: 100%;
+}
+
+.task-form-currentStatus,
+.task-form-description,
+.task-form-name {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.task-form-currentStatus label,
+.task-form-subtasks label,
+.task-form-description label,
+.task-form-name label {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--color-secondary-2);
+}
+
+.task-form-currentStatus select,
+.subtask-item-input input,
+.task-form-description textarea,
+.task-form-name input {
+  border: 1px solid #ddd;
+  padding: 1.2rem;
+  border-radius: 0.5rem;
+  color: var(--color-secondary);
+  font-family: inherit;
+}
+
+.task-form-currentStatus select option {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 600;
+}
+
+.task-form-currentStatus select:focus,
+.subtask-item-input input:focus,
+.task-form-description textarea:focus,
+.task-form-name input:focus {
+  outline: 1px solid var(--color-primary-light);
+}
+
+.subtask-item-input input::placeholder,
+.task-form-description textarea::placeholder,
+.task-form-name input::placeholder {
+  color: #ccc;
+  letter-spacing: 1px;
+}
+
+.task-form-error {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #ea5555;
+  margin-top: 0.4rem;
+}
+
+.task-form-subtasks {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.subtask-list {
+  max-height: 20rem;
+  padding: 0.1rem;
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.subtask-list::-webkit-scrollbar {
+  /* WebKit */
+  width: 0px;
+}
+
+.subtask-list-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.subtask-item-input {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+}
+
+.subtask-item-input input {
+  flex: 1;
+}
+
+.subtask-item-input button {
+  padding: 1rem;
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.task-form-submit,
+.task-form-append {
+  border: none;
+  background-color: var(--color-primary);
+  color: #fff;
+  padding: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 2rem;
+  cursor: pointer;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  transition: all 0.3s;
+}
+
+.task-form-submit:hover,
+.task-form-append:hover {
+  background-color: var(--color-primary-light);
+}
+
+.margin-bottom {
+  margin-bottom: 1rem !important;
 }
 
 /***************************************************/
