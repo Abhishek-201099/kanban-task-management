@@ -2,8 +2,11 @@ import { useFieldArray, useForm } from "react-hook-form";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import { useSelector } from "react-redux";
 import { getCurrentOpenBoardData } from "../Boards/boardSlice";
+import { useDispatch } from "react-redux";
+import { addTask } from "./taskSlice";
 
 export default function TaskAddForm({ setIsOpenAddTaskForm }) {
+  const dispatch = useDispatch();
   const currentOpenBoardData = useSelector(getCurrentOpenBoardData);
   const {
     control,
@@ -21,7 +24,7 @@ export default function TaskAddForm({ setIsOpenAddTaskForm }) {
     name: "subtasks",
     control,
     rules: {
-      required: "Add at least one subtasks",
+      required: "Add at least one subtask",
     },
   });
 
@@ -32,10 +35,23 @@ export default function TaskAddForm({ setIsOpenAddTaskForm }) {
   }
 
   function onSubmit(data) {
-    // ADD STYLES TO TASK ADD FORM
-    // HANDLE DISPATCHING ACTION FOR ADDING PROPER TASK DATA
-    console.log(data);
+    const { taskName, taskDescription, taskCurrentStatus, subtasks } = data;
+    const subtasksUpdated = subtasks.map((subtask) => {
+      return { subtask: subtask.subtaskName, subtaskStatus: "unchecked" };
+    });
+    dispatch(
+      addTask({
+        task: {
+          taskName,
+          taskDescription,
+          taskForCol: taskCurrentStatus,
+          taskForBoard: currentOpenBoardData.boardName,
+          subtasks: subtasksUpdated,
+        },
+      })
+    );
     reset();
+    setIsOpenAddTaskForm(false);
   }
 
   return (

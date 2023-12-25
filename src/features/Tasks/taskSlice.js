@@ -61,6 +61,6 @@ export const { addTask } = taskSlice.actions;
 
 export default taskSlice.reducer;
 
-function getTasksData(state) {
+export function getTasksData(state) {
   return state.tasks.tasksData;
 }
