@@ -1,12 +1,17 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { getTasksData } from "../Tasks/taskSlice";
-import { getCurrentOpenBoardData } from "./boardSlice";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { MdDeleteOutline } from "react-icons/md";
+
+import { getCurrentOpenBoardData } from "./boardSlice";
+import { getTasksData } from "../Tasks/taskSlice";
 import BoardAddColumn from "./BoardAddColumn";
+import BoardColDeleteForm from "./BoardColDeleteForm";
 
 export default function BoardTasks() {
   const [isAddBoardCol, setIsAddBoardCol] = useState(false);
+  const [isDeleteCol, setIsDeleteCol] = useState(false);
+  const [colToDelete, setColToDelete] = useState("");
   const tasksData = useSelector(getTasksData);
   const currentOpenBoardData = useSelector(getCurrentOpenBoardData);
 
@@ -24,14 +29,25 @@ export default function BoardTasks() {
         {currentOpenBoardData.boardColumns.map((boardColumn, index) => {
           return (
             <div className="task-column" key={index}>
-              <p className="task-column-heading">
-                {boardColumn.columnName} (
-                {currentOpenBoardTasks.reduce((acc, task) => {
-                  if (task.taskForCol === boardColumn.columnName) acc += 1;
-                  return acc;
-                }, 0)}
-                )
-              </p>
+              <div className="task-column-heading-container">
+                <p className="task-column-heading">
+                  {boardColumn.columnName} (
+                  {currentOpenBoardTasks.reduce((acc, task) => {
+                    if (task.taskForCol === boardColumn.columnName) acc += 1;
+                    return acc;
+                  }, 0)}
+                  )
+                </p>
+                <button
+                  className="task-column-deleteBtn"
+                  onClick={() => {
+                    setColToDelete(boardColumn.columnName);
+                    setIsDeleteCol((isDeleteCol) => !isDeleteCol);
+                  }}
+                >
+                  <MdDeleteOutline />
+                </button>
+              </div>
               <Droppable droppableId={`${boardColumn.columnName}--${index}`}>
                 {(provided) => (
                   <div
@@ -84,6 +100,13 @@ export default function BoardTasks() {
         <BoardAddColumn
           setIsAddBoardCol={setIsAddBoardCol}
           currentOpenBoardData={currentOpenBoardData}
+        />
+      )}
+
+      {isDeleteCol && (
+        <BoardColDeleteForm
+          colToDelete={colToDelete}
+          setIsDeleteCol={setIsDeleteCol}
         />
       )}
     </div>

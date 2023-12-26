@@ -9,6 +9,7 @@
   --color-secondary-2: #828fa3;
   --color-secondary-3: #efeff9;
   --color-secondary-4: #e0dff4;
+  --color-secondary-5: #ea5555;
 }
 
 *,
@@ -299,12 +300,35 @@ main {
   gap: 2rem;
 }
 
+.task-column-heading-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 .task-column-heading {
   text-transform: uppercase;
   color: var(--color-secondary-2);
   font-weight: 700;
   letter-spacing: 1px;
   font-size: 1.2rem;
+}
+
+.task-column-deleteBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  visibility: hidden;
+  transition: all 0.2s;
+}
+
+.task-column:hover .task-column-deleteBtn {
+  visibility: visible;
+}
+
+.task-column-deleteBtn svg {
+  height: 100%;
+  width: 100%;
+  color: var(--color-secondary-5);
 }
 
 .task-column-list {
@@ -369,6 +393,20 @@ main {
 /***************************************************/
 /***************************************************/
 /***************************************************/
+/* DELETE BOARD COLUMN FORM */
+
+/* .boardCol-delete-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.boardCol-delete-container p {
+} */
+
+/***************************************************/
+/***************************************************/
+/***************************************************/
 /* ADD NEW COLUMN FORM */
 
 .new-board-col-form {
@@ -413,7 +451,7 @@ main {
 .new-board-col-input p {
   font-size: 1.3rem;
   font-weight: 500;
-  color: #ea5555;
+  color: var(--color-secondary-5);
 }
 
 .new-board-col-form button {
@@ -673,16 +711,16 @@ main {
 .board-form-error {
   font-size: 1.3rem;
   font-weight: 500;
-  color: #ea5555;
+  color: var(--color-secondary-5);
   margin-top: 0.4rem;
 }
 
 .board-input-error {
-  outline: 1px solid #ea5555;
+  outline: 1px solid var(--color-secondary-5);
 }
 
 .board-input-error:focus {
-  outline: 1px solid #ea5555 !important;
+  outline: 1px solid var(--color-secondary-5) !important;
 }
 
 .board-form-btns {
@@ -748,7 +786,7 @@ main {
 }
 
 .navbar-context-item:last-child {
-  color: #ea5555;
+  color: var(--color-secondary-5);
 }
 
 /***************************************************/
@@ -797,15 +835,15 @@ main {
 .boardName-input-container p {
   font-size: 1.3rem;
   font-weight: 500;
-  color: #ea5555;
+  color: var(--color-secondary-5);
 }
 
 .boardName-input-error {
-  outline: 1px solid #ea5555;
+  outline: 1px solid var(--color-secondary-5);
 }
 
 .boardName-input-error:focus {
-  outline: 1px solid #ea5555 !important;
+  outline: 1px solid var(--color-secondary-5) !important;
 }
 
 .boardName-update-form button {
@@ -830,6 +868,7 @@ main {
 /***************************************************/
 /* BOARD DELETE FORM */
 
+.boardCol-delete-container,
 .boardDelete-form-container {
   background-color: #fff;
   width: 50rem;
@@ -841,6 +880,7 @@ main {
   gap: 2rem;
 }
 
+.boardCol-delete-container p,
 .boardDelete-form-container p {
   text-align: center;
   font-size: 2rem;
@@ -850,6 +890,7 @@ main {
   color: var(--color-secondary);
 }
 
+.boardCol-delete-btns,
 .boardDelete-btns {
   align-self: center;
 
@@ -857,6 +898,7 @@ main {
   gap: 4rem;
 }
 
+.boardCol-delete-btns button,
 .boardDelete-btns button {
   padding: 1rem 2rem;
   border-radius: 2rem;
@@ -868,20 +910,24 @@ main {
   transition: all 0.3s;
 }
 
+.boardCol-delete-btns button:first-child,
 .boardDelete-btns button:first-child {
-  background-color: #ea5555;
+  background-color: var(--color-secondary-5);
   color: #fff;
 }
 
+.boardCol-delete-btns button:first-child:hover,
 .boardDelete-btns button:first-child:hover {
   background-color: #ec6666;
 }
 
+.boardCol-delete-btns button:last-child,
 .boardDelete-btns button:last-child {
   border: 1px solid #ddd;
   background-color: #fff;
 }
 
+.boardCol-delete-btns button:last-child:hover,
 .boardDelete-btns button:last-child:hover {
   background-color: #eee;
 }
@@ -981,7 +1027,7 @@ main {
 .task-form-error {
   font-size: 1.3rem;
   font-weight: 500;
-  color: #ea5555;
+  color: var(--color-secondary-5);
   margin-top: 0.4rem;
 }
 
