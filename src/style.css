@@ -757,6 +757,7 @@ main {
 /***************************************************/
 /* CONTEXT MENU */
 
+.taskinfo-context-menu,
 .navbar-context-menu {
   background-color: #fff;
   position: absolute;
@@ -771,6 +772,7 @@ main {
   /* gap: 2rem; */
 }
 
+.taskinfo-context-item,
 .navbar-context-item {
   font-size: 1.4rem;
   font-weight: 500;
@@ -781,10 +783,12 @@ main {
   color: var(--color-secondary);
 }
 
+.taskinfo-context-item:hover,
 .navbar-context-item:hover {
   background-color: var(--color-secondary-3);
 }
 
+.taskinfo-context-item:last-child,
 .navbar-context-item:last-child {
   color: var(--color-secondary-5);
 }
@@ -868,6 +872,7 @@ main {
 /***************************************************/
 /* BOARD DELETE FORM */
 
+.taskinfo-delete-container,
 .boardCol-delete-container,
 .boardDelete-form-container {
   background-color: #fff;
@@ -880,6 +885,7 @@ main {
   gap: 2rem;
 }
 
+.taskinfo-delete-container p,
 .boardCol-delete-container p,
 .boardDelete-form-container p {
   text-align: center;
@@ -890,6 +896,7 @@ main {
   color: var(--color-secondary);
 }
 
+.taskinfo-delete-btns,
 .boardCol-delete-btns,
 .boardDelete-btns {
   align-self: center;
@@ -898,6 +905,7 @@ main {
   gap: 4rem;
 }
 
+.taskinfo-delete-btns button,
 .boardCol-delete-btns button,
 .boardDelete-btns button {
   padding: 1rem 2rem;
@@ -910,23 +918,27 @@ main {
   transition: all 0.3s;
 }
 
+.taskinfo-delete-btns button:first-child,
 .boardCol-delete-btns button:first-child,
 .boardDelete-btns button:first-child {
   background-color: var(--color-secondary-5);
   color: #fff;
 }
 
+.taskinfo-delete-btns button:first-child:hover,
 .boardCol-delete-btns button:first-child:hover,
 .boardDelete-btns button:first-child:hover {
   background-color: #ec6666;
 }
 
+.taskinfo-delete-btns button:last-child,
 .boardCol-delete-btns button:last-child,
 .boardDelete-btns button:last-child {
   border: 1px solid #ddd;
   background-color: #fff;
 }
 
+.taskinfo-delete-btns button:last-child:hover,
 .boardCol-delete-btns button:last-child:hover,
 .boardDelete-btns button:last-child:hover {
   background-color: #eee;
@@ -1098,6 +1110,122 @@ main {
 
 .margin-bottom {
   margin-bottom: 1rem !important;
+}
+
+/***************************************************/
+/***************************************************/
+/***************************************************/
+/* TASK INFO WINDOW*/
+.taskinfo-container {
+  background-color: #fff;
+  padding: 2rem;
+  width: 50rem;
+  border-radius: 6px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.taskinfo-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.taskinfo-taskName {
+  font-size: 2rem;
+  color: var(--color-secondary);
+  font-weight: 700;
+}
+
+.taskinfo-contextMenu-icon {
+  cursor: pointer;
+}
+
+.taskinfo-context-menu {
+  position: absolute;
+}
+
+.taskinfo-description {
+  font-size: 1.4rem;
+  color: var(--color-secondary-2);
+}
+
+.taskinfo-currentStatus {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.taskinfo-subtasks p,
+.taskinfo-currentStatus label {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--color-secondary-2);
+}
+
+.taskinfo-currentStatus select {
+  border: 1px solid #ddd;
+  padding: 1.2rem;
+  border-radius: 0.5rem;
+  color: var(--color-secondary);
+  font-family: inherit;
+}
+
+.taskinfo-currentStatus select option {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 600;
+}
+
+.taskinfo-currentStatus select:focus {
+  outline: 1px solid var(--color-primary-light);
+}
+
+.checked {
+  text-decoration: line-through;
+}
+
+.taskinfo-subtasks-list {
+  max-height: 20rem;
+  overflow: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.taskinfo-subtasks-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.taskinfo-subtasks-list::-webkit-scrollbar-thumb {
+  background-color: var(--color-secondary-3);
+}
+
+.taskinfo-subtasks {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.taskinfo-subtasks p {
+  letter-spacing: 1px;
+}
+
+.taskinfo-subtasks-item {
+  background-color: var(--color-secondary-3);
+  padding: 1rem;
+  border-radius: 6px;
+
+  display: flex;
+  gap: 1rem;
+}
+
+.taskinfo-subtasks-item label {
+  font-size: 1.4rem;
+  font-weight: 700;
 }
 
 /***************************************************/

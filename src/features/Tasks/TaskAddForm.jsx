@@ -3,9 +3,14 @@ import useOutsideClick from "../../hooks/useOutsideClick";
 import { useSelector } from "react-redux";
 import { getCurrentOpenBoardData } from "../Boards/boardSlice";
 import { useDispatch } from "react-redux";
-import { addTask } from "./taskSlice";
+import { addTask, editTask } from "./taskSlice";
 
-export default function TaskAddForm({ setIsOpenAddTaskForm }) {
+export default function TaskAddForm({
+  setIsOpenAddTaskForm,
+  formFor = "add",
+  selectedTask = {},
+  setIsOpenTaskInfo,
+}) {
   const dispatch = useDispatch();
   const currentOpenBoardData = useSelector(getCurrentOpenBoardData);
   const {
@@ -16,7 +21,9 @@ export default function TaskAddForm({ setIsOpenAddTaskForm }) {
     handleSubmit,
   } = useForm({
     defaultValues: {
-      subtasks: [{ subtaskName: "" }, { subtaskName: "" }],
+      subtasks: selectedTask?.subtasks?.map((subtask) => ({
+        subtaskName: subtask.subtask,
+      })) || [{ subtaskName: "" }, { subtaskName: "" }],
     },
   });
 
@@ -32,24 +39,46 @@ export default function TaskAddForm({ setIsOpenAddTaskForm }) {
 
   function handleOutsideClick() {
     setIsOpenAddTaskForm(false);
+    setIsOpenTaskInfo?.(true);
   }
 
   function onSubmit(data) {
     const { taskName, taskDescription, taskCurrentStatus, subtasks } = data;
     const subtasksUpdated = subtasks.map((subtask) => {
-      return { subtask: subtask.subtaskName, subtaskStatus: "unchecked" };
+      return {
+        subtask: subtask.subtaskName,
+        subtaskStatus:
+          selectedTask?.subtasks?.find(
+            (item) => item.subtask === subtask.subtaskName
+          )?.subtaskStatus || "unchecked",
+      };
     });
-    dispatch(
-      addTask({
-        task: {
-          taskName,
-          taskDescription,
-          taskForCol: taskCurrentStatus,
-          taskForBoard: currentOpenBoardData.boardName,
-          subtasks: subtasksUpdated,
-        },
-      })
-    );
+
+    formFor === "add"
+      ? dispatch(
+          addTask({
+            task: {
+              taskName,
+              taskDescription,
+              taskForCol: taskCurrentStatus,
+              taskForBoard: currentOpenBoardData.boardName,
+              subtasks: subtasksUpdated,
+            },
+          })
+        )
+      : dispatch(
+          editTask({
+            updatedTask: {
+              prevTaskName: selectedTask.taskName,
+              taskName,
+              taskDescription,
+              taskForCol: taskCurrentStatus,
+              taskForBoard: currentOpenBoardData.boardName,
+              subtasks: subtasksUpdated,
+            },
+          })
+        );
+
     reset();
     setIsOpenAddTaskForm(false);
   }
@@ -58,12 +87,15 @@ export default function TaskAddForm({ setIsOpenAddTaskForm }) {
     <div className="modal">
       <div ref={ref} className="taskaddform-container">
         <form className="task-add-form" onSubmit={handleSubmit(onSubmit)}>
-          <p className="task-form-heading margin-bottom">Add new task</p>
+          <p className="task-form-heading margin-bottom">
+            {formFor === "add" ? "Add new task" : "Edit task"}
+          </p>
           <div className="task-form-name">
             <label htmlFor="taskName">Task Name</label>
             <input
               type="text"
               id="taskName"
+              defaultValue={selectedTask.taskName ? selectedTask.taskName : ""}
               placeholder="e.g. Send mail "
               className={`${
                 errors?.taskName?.message ? "board-input-error" : ""
@@ -83,6 +115,9 @@ export default function TaskAddForm({ setIsOpenAddTaskForm }) {
               id="taskDescription"
               cols="30"
               rows="10"
+              defaultValue={
+                selectedTask.taskDescription ? selectedTask.taskDescription : ""
+              }
               className={`${
                 errors?.taskDescription?.message ? "board-input-error" : ""
               }`}
@@ -143,7 +178,13 @@ export default function TaskAddForm({ setIsOpenAddTaskForm }) {
 
           <div className="task-form-currentStatus">
             <label htmlFor="taskCurrentStatus">Current Status</label>
-            <select id="taskCurrentStatus" {...register("taskCurrentStatus")}>
+            <select
+              defaultValue={
+                selectedTask.taskForCol ? selectedTask.taskForCol : ""
+              }
+              id="taskCurrentStatus"
+              {...register("taskCurrentStatus")}
+            >
               {currentOpenBoardData.boardColumns.map((boardColumn, index) => {
                 return (
                   <option key={index} value={boardColumn.columnName}>
@@ -155,7 +196,11 @@ export default function TaskAddForm({ setIsOpenAddTaskForm }) {
           </div>
 
           <button className="task-form-submit" type="submit">
-            Create new task
+            {formFor === "add"
+              ? "Create new task"
+              : formFor === "edit"
+              ? "Save changes"
+              : ""}
           </button>
         </form>
       </div>

@@ -31,12 +31,37 @@ const taskSlice = createSlice({
       );
 
       if (taskToUpdate) {
+        console.log("tasktoupdate does exist");
         taskToUpdate.taskName = updatedTask.taskName;
         taskToUpdate.taskForBoard = updatedTask.taskForBoard;
         taskToUpdate.taskDescription = updatedTask.taskDescription;
         taskToUpdate.taskForCol = updatedTask.taskForCol;
         taskToUpdate.subtasks = updatedTask.subtasks;
       }
+    },
+    updateTaskForCol(state, action) {
+      const { currentBoard, selectedTask, newTaskForCol } = action.payload;
+      const taskToUpdate = state.tasksData.find((task) => {
+        return (
+          task.taskForCol === selectedTask.taskForCol &&
+          task.taskForBoard === currentBoard
+        );
+      });
+
+      taskToUpdate.taskForCol = newTaskForCol;
+    },
+    updateSubtaskStatus(state, action) {
+      const { currentBoard, selectedTask, checkedSubtasks } = action.payload;
+      const taskToUpdate = state.tasksData.find(
+        (task) =>
+          task.taskName === selectedTask.taskName &&
+          task.taskForBoard === currentBoard
+      );
+      taskToUpdate.subtasks.forEach((subtask) => {
+        if (checkedSubtasks.includes(subtask.subtask))
+          subtask.subtaskStatus = "checked";
+        else subtask.subtaskStatus = "unchecked";
+      });
     },
     deleteTask(state, action) {
       const { taskToRemove } = action.payload;
@@ -57,7 +82,13 @@ const taskSlice = createSlice({
   },
 });
 
-export const { addTask } = taskSlice.actions;
+export const {
+  addTask,
+  editTask,
+  updateTaskForCol,
+  updateSubtaskStatus,
+  deleteTask,
+} = taskSlice.actions;
 
 export default taskSlice.reducer;
 
