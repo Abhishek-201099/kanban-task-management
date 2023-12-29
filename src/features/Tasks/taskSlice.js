@@ -1,18 +1,45 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialTaskState = {
-  tasksData: [
-    {
-      taskName: "Sample Task",
-      taskForBoard: "Sample Board",
-      taskForCol: "Todo",
-      taskDescription: "lorem ipsum woho",
-      subtasks: [
-        { subtask: "Design the task board", subtaskStatus: "unchecked" },
-        { subtask: "Clear the board once done", subtaskStatus: "checked" },
+  tasksData: {
+    "Sample Board": {
+      Todo: [
+        {
+          taskName: "Sample Todo task",
+          taskForBoard: "Sample Board",
+          taskForCol: "Todo",
+          taskDescription: "lorem ipsum woho",
+          subtasks: [
+            { subtask: "Design the task board", subtaskStatus: "unchecked" },
+            { subtask: "Clear the board once done", subtaskStatus: "checked" },
+          ],
+        },
       ],
+      Doing: [
+        {
+          taskName: "Sample Doing task 1",
+          taskForBoard: "Sample Board",
+          taskForCol: "Doing",
+          taskDescription: "lorem ipsum woho",
+          subtasks: [
+            { subtask: "Sample subtask 1", subtaskStatus: "unchecked" },
+            { subtask: "Sample subtask 2", subtaskStatus: "unchecked" },
+          ],
+        },
+        {
+          taskName: "Sample Doing task 2",
+          taskForBoard: "Sample Board",
+          taskForCol: "Doing",
+          taskDescription: "lorem ipsum woho",
+          subtasks: [
+            { subtask: "Sample subtask 1", subtaskStatus: "checked" },
+            { subtask: "Sample subtask 2", subtaskStatus: "checked" },
+          ],
+        },
+      ],
+      Done: [],
     },
-  ],
+  },
 };
 
 const taskSlice = createSlice({
@@ -20,64 +47,132 @@ const taskSlice = createSlice({
   initialState: initialTaskState,
   reducers: {
     addTask(state, action) {
-      state.tasksData = [...state.tasksData, action.payload.task];
+      const taskToAdd = action.payload.task;
+      const { taskForBoard, taskForCol } = taskToAdd;
+      Object.keys(state.tasksData).forEach((board) => {
+        if (board === taskForBoard) {
+          Object.keys(state.tasksData[board]).forEach((boardColumn) => {
+            if (boardColumn === taskForCol) {
+              state.tasksData[board][boardColumn].push(taskToAdd);
+            }
+          });
+        }
+      });
     },
     editTask(state, action) {
-      const { updatedTask } = action.payload;
-      const taskToUpdate = state.tasksData.find(
-        (task) =>
-          task.taskName === updatedTask.prevTaskName &&
-          task.taskForBoard === updatedTask.taskForBoard
-      );
+      const { prevTask, updatedTask } = action.payload;
 
-      if (taskToUpdate) {
-        console.log("tasktoupdate does exist");
-        taskToUpdate.taskName = updatedTask.taskName;
-        taskToUpdate.taskForBoard = updatedTask.taskForBoard;
-        taskToUpdate.taskDescription = updatedTask.taskDescription;
-        taskToUpdate.taskForCol = updatedTask.taskForCol;
-        taskToUpdate.subtasks = updatedTask.subtasks;
-      }
+      Object.keys(state.tasksData).forEach((board) => {
+        if (board === prevTask.taskForBoard) {
+          Object.keys(state.tasksData[board]).forEach((boardColumn) => {
+            if (boardColumn === prevTask.taskForCol) {
+              const findResult = state.tasksData[board][boardColumn].find(
+                (task) => task.taskName === prevTask.taskName
+              );
+              if (findResult) {
+                findResult.taskName = updatedTask.taskName;
+                findResult.taskDescription = updatedTask.taskDescription;
+                findResult.taskForBoard = updatedTask.taskForBoard;
+                findResult.taskForCol = updatedTask.taskForCol;
+                findResult.subtasks = updatedTask.subtasks;
+              }
+            }
+          });
+        }
+      });
     },
     updateTaskForCol(state, action) {
-      const { currentBoard, selectedTask, newTaskForCol } = action.payload;
-      const taskToUpdate = state.tasksData.find((task) => {
-        return (
-          task.taskForCol === selectedTask.taskForCol &&
-          task.taskForBoard === currentBoard
-        );
-      });
+      const { taskToUpdate, newColumn, droppedIndex } = action.payload;
 
-      taskToUpdate.taskForCol = newTaskForCol;
+      Object.keys(state.tasksData).forEach((board) => {
+        if (board === taskToUpdate.taskForBoard) {
+          Object.keys(state.tasksData[board]).forEach((boardColumn) => {
+            if (boardColumn === taskToUpdate.taskForCol) {
+              state.tasksData[board][boardColumn] = state.tasksData[board][
+                boardColumn
+              ].filter((task) => task.taskName !== taskToUpdate.taskName);
+            }
+
+            if (boardColumn === newColumn) {
+              droppedIndex === undefined
+                ? state.tasksData[board][boardColumn].push({
+                    ...taskToUpdate,
+                    taskForCol: newColumn,
+                  })
+                : state.tasksData[board][boardColumn].splice(droppedIndex, 0, {
+                    ...taskToUpdate,
+                    taskForCol: newColumn,
+                  });
+            }
+          });
+        }
+      });
     },
     updateSubtaskStatus(state, action) {
-      const { currentBoard, selectedTask, checkedSubtasks } = action.payload;
-      const taskToUpdate = state.tasksData.find(
-        (task) =>
-          task.taskName === selectedTask.taskName &&
-          task.taskForBoard === currentBoard
-      );
-      taskToUpdate.subtasks.forEach((subtask) => {
-        if (checkedSubtasks.includes(subtask.subtask))
-          subtask.subtaskStatus = "checked";
-        else subtask.subtaskStatus = "unchecked";
+      const { taskToUpdate, checkedSubtasks } = action.payload;
+
+      Object.keys(state.tasksData).forEach((board) => {
+        if (board === taskToUpdate.taskForBoard) {
+          Object.keys(state.tasksData[board]).forEach((boardColumn) => {
+            if (boardColumn === taskToUpdate.taskForCol) {
+              state.tasksData[board][boardColumn].forEach((task) => {
+                if (task.taskName === taskToUpdate.taskName) {
+                  task.subtasks.forEach((subtask) => {
+                    if (checkedSubtasks.includes(subtask.subtask)) {
+                      subtask.subtaskStatus = "checked";
+                    } else {
+                      subtask.subtaskStatus = "unchecked";
+                    }
+                  });
+                }
+              });
+            }
+          });
+        }
       });
     },
     deleteTask(state, action) {
       const { taskToRemove } = action.payload;
-      const taskToDelete = state.tasksData.find(
-        (task) =>
-          task.taskName === taskToRemove.taskName &&
-          task.taskForBoard === taskToRemove.taskForBoard
-      );
+      const { taskName, taskForBoard, taskForCol } = taskToRemove;
+      Object.keys(state.tasksData).forEach((board) => {
+        if (board === taskForBoard) {
+          Object.keys(state.tasksData[board]).forEach((boardColumn) => {
+            if (boardColumn === taskForCol) {
+              state.tasksData[board][boardColumn] = state.tasksData[board][
+                boardColumn
+              ].filter((task) => task.taskName !== taskName);
+            }
+          });
+        }
+      });
+    },
+    addNewBoardData(state, action) {
+      const { boardName, boardColumns } = action.payload;
+      const result = boardColumns.reduce((acc, boardColumn) => {
+        return { ...acc, [boardColumn.columnName]: [] };
+      }, {});
+      state.tasksData[boardName] = result;
+    },
+    addNewBoardTaskColumn(state, action) {
+      const { currentBoard, newBoardColumn } = action.payload;
+      state.tasksData[currentBoard][newBoardColumn] = [];
+    },
+    deleteBoardData(state, action) {
+      const { currentBoard } = action.payload;
+      const taskDataCopy = Object.assign({}, current(state.tasksData));
+      delete taskDataCopy[currentBoard];
+      state.tasksData = taskDataCopy;
+    },
+    deleteBoardTaskColumn(state, action) {
+      const { currentBoard, colToDelete } = action.payload;
 
-      if (taskToDelete) {
-        state.tasksData = state.tasksData.filter(
-          (task) =>
-            task.taskName !== taskToDelete.taskName &&
-            task.taskForBoard === taskToDelete.taskForBoard
-        );
-      }
+      state.tasksData[currentBoard];
+      const currentBoardData = Object.assign(
+        {},
+        current(state.tasksData[currentBoard])
+      );
+      delete currentBoardData[colToDelete];
+      state.tasksData[currentBoard] = currentBoardData;
     },
   },
 });
@@ -88,6 +183,10 @@ export const {
   updateTaskForCol,
   updateSubtaskStatus,
   deleteTask,
+  addNewBoardData,
+  deleteBoardData,
+  deleteBoardTaskColumn,
+  addNewBoardTaskColumn,
 } = taskSlice.actions;
 
 export default taskSlice.reducer;

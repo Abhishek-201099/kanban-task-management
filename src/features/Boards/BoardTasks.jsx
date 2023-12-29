@@ -22,15 +22,15 @@ export default function BoardTasks() {
     setSelectedTask,
     isOpenEditTaskForm,
     setIsOpenEditTaskForm,
-    currentOpenBoardData,
-    currentOpenBoardTasks,
+    currentOpenBoard,
+    tasksData,
   } = useBoardTasks();
 
   return (
     <div className="container-board">
       <TaskColumns
-        currentOpenBoardData={currentOpenBoardData}
-        currentOpenBoardTasks={currentOpenBoardTasks}
+        currentOpenBoard={currentOpenBoard}
+        tasksData={tasksData}
         setColToDelete={setColToDelete}
         setIsDeleteCol={setIsDeleteCol}
         setSelectedTask={setSelectedTask}
@@ -41,7 +41,7 @@ export default function BoardTasks() {
       {isAddBoardCol && (
         <BoardAddColumn
           setIsAddBoardCol={setIsAddBoardCol}
-          currentOpenBoardData={currentOpenBoardData}
+          currentOpenBoard={currentOpenBoard}
         />
       )}
 

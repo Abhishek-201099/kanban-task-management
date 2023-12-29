@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { addBoard } from "./boardSlice";
+import { addNewBoardData } from "../Tasks/taskSlice";
 
 export default function CreateBoardForm({
   isOpenModal,
@@ -40,6 +41,7 @@ export default function CreateBoardForm({
   function onSubmit(data) {
     const { boardName, boardColumns } = data;
     dispatch(addBoard({ boardName, boardColumns }));
+    dispatch(addNewBoardData({ boardName, boardColumns }));
     reset();
     setIsOpenModal(false);
   }

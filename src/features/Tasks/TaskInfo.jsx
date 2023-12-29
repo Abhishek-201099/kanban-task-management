@@ -30,18 +30,18 @@ export default function TaskInfo({
 
     dispatch(
       updateSubtaskStatus({
-        currentBoard: currentOpenBoardData.boardName,
-        selectedTask,
+        taskToUpdate: selectedTask,
         checkedSubtasks,
       })
     );
 
+    // FIX THE TASK SWITCH ISSUE WHERE CHECKING AIN'T WORKING AFTER SWITCHING COLS
+
     if (selectedTask.taskForCol !== currentStatusValue) {
       dispatch(
         updateTaskForCol({
-          currentBoard: currentOpenBoardData.boardName,
-          selectedTask,
-          newTaskForCol: currentStatusValue,
+          taskToUpdate: selectedTask,
+          newColumn: currentStatusValue,
         })
       );
     }

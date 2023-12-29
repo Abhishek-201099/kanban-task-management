@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { deleteBoard, getCurrentOpenBoard } from "./boardSlice";
 import { useDispatch } from "react-redux";
 import useOutsideClick from "../../hooks/useOutsideClick";
+import { deleteBoardData } from "../Tasks/taskSlice";
 
 export default function BoardDeleteForm({ setIsOpenBoardDeleteModal }) {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ export default function BoardDeleteForm({ setIsOpenBoardDeleteModal }) {
 
   function handleBoardDelete() {
     dispatch(deleteBoard({ currentBoard }));
+    dispatch(deleteBoardData({ currentBoard }));
     setIsOpenBoardDeleteModal(false);
   }
 

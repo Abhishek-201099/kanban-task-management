@@ -3,7 +3,7 @@ import useOutsideClick from "../../hooks/useOutsideClick";
 import { useSelector } from "react-redux";
 import { getCurrentOpenBoardData } from "../Boards/boardSlice";
 import { useDispatch } from "react-redux";
-import { addTask, editTask } from "./taskSlice";
+import { addTask, editTask, updateTaskForCol } from "./taskSlice";
 
 export default function TaskAddForm({
   setIsOpenAddTaskForm,
@@ -68,16 +68,34 @@ export default function TaskAddForm({
         )
       : dispatch(
           editTask({
+            prevTask: selectedTask,
             updatedTask: {
-              prevTaskName: selectedTask.taskName,
               taskName,
               taskDescription,
-              taskForCol: taskCurrentStatus,
+              taskForCol: selectedTask.taskForCol,
               taskForBoard: currentOpenBoardData.boardName,
               subtasks: subtasksUpdated,
             },
           })
         );
+
+    if (formFor === "edit" && selectedTask?.taskForCol !== taskCurrentStatus) {
+      console.log(
+        `After task edit, task column have changed from ${selectedTask?.taskForCol} to ${taskCurrentStatus}`
+      );
+      dispatch(
+        updateTaskForCol({
+          taskToUpdate: {
+            taskName,
+            taskDescription,
+            taskForCol: selectedTask.taskForCol,
+            taskForBoard: currentOpenBoardData.boardName,
+            subtasks: subtasksUpdated,
+          },
+          newColumn: taskCurrentStatus,
+        })
+      );
+    }
 
     reset();
     setIsOpenAddTaskForm(false);

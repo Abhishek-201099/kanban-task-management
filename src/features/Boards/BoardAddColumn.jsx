@@ -2,11 +2,9 @@ import { useForm } from "react-hook-form";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import { useDispatch } from "react-redux";
 import { addBoardColumn } from "./boardSlice";
+import { addNewBoardTaskColumn } from "../Tasks/taskSlice";
 
-export default function BoardAddColumn({
-  setIsAddBoardCol,
-  currentOpenBoardData,
-}) {
+export default function BoardAddColumn({ setIsAddBoardCol, currentOpenBoard }) {
   const dispatch = useDispatch();
   const {
     register,
@@ -26,7 +24,13 @@ export default function BoardAddColumn({
     const { newBoardColumn } = data;
     dispatch(
       addBoardColumn({
-        currentBoard: currentOpenBoardData.boardName,
+        currentBoard: currentOpenBoard,
+        newBoardColumn,
+      })
+    );
+    dispatch(
+      addNewBoardTaskColumn({
+        currentBoard: currentOpenBoard,
         newBoardColumn,
       })
     );

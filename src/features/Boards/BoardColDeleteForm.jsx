@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import { deleteBoardColumn, getCurrentOpenBoard } from "./boardSlice";
 import { useDispatch } from "react-redux";
+import { deleteBoardTaskColumn } from "../Tasks/taskSlice";
 
 export default function BoardColDeleteForm({ setIsDeleteCol, colToDelete }) {
   const dispatch = useDispatch();
@@ -13,9 +14,14 @@ export default function BoardColDeleteForm({ setIsDeleteCol, colToDelete }) {
   }
 
   function handleColumnDelete() {
-    // LATER: DELETE TASKS RELATED TO DELETED COL
     dispatch(
       deleteBoardColumn({
+        currentBoard: currentOpenBoard,
+        colToDelete,
+      })
+    );
+    dispatch(
+      deleteBoardTaskColumn({
         currentBoard: currentOpenBoard,
         colToDelete,
       })
