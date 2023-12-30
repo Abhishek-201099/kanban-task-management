@@ -35,6 +35,14 @@ export default function TaskColumns({
 
   const currentOpenBoardTaskInfo = tasksData[currentOpenBoard];
 
+  if (!currentOpenBoardTaskInfo)
+    return (
+      <div className="no-boards-container">
+        <p>No Boards to display</p>
+        <p>Please create a board ...</p>
+      </div>
+    );
+
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       {Object.keys(currentOpenBoardTaskInfo).map((boardColumn, index) => {

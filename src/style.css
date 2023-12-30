@@ -1231,6 +1231,65 @@ main {
 /***************************************************/
 /***************************************************/
 /***************************************************/
+/* NO BOARDS CONTAINER */
+.no-boards-container {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+}
+
+.no-boards-container p:first-child {
+  font-size: 3.2rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-top: 8rem;
+}
+
+.no-boards-container p:last-child {
+  font-size: 2rem;
+  letter-spacing: -0.1px;
+}
+
+/***************************************************/
+/***************************************************/
+/***************************************************/
+/* PAGE NOT FOUND */
+.page-not-found-container {
+  height: 100dvh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10rem;
+}
+
+.page-not-found-container p {
+  font-size: 6.2rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+}
+
+.page-not-found-container button {
+  display: inline-block;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  padding: 0.4rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.page-not-found-container button:hover {
+  border-bottom: 1px solid #000;
+}
+
+/***************************************************/
+/***************************************************/
+/***************************************************/
 /* RESPONSIVE */
 
 /* 2xl */

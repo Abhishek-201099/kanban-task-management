@@ -32,6 +32,8 @@ const boardSlice = createSlice({
           boardColumns: action.payload.boardColumns,
         },
       ];
+
+      if (!state.currentBoard) state.currentBoard = action.payload.boardName;
     },
     addBoardColumn(state, action) {
       state.boardsData.forEach((board) => {
@@ -78,7 +80,7 @@ const boardSlice = createSlice({
       state.boardsData = state.boardsData.filter(
         (board) => board.boardName !== action.payload.currentBoard
       );
-      state.currentBoard = state.boardsData.at(0).boardName;
+      state.currentBoard = state.boardsData.at(0)?.boardName || "";
     },
     setCurrentOpenBoard(state, action) {
       state.currentBoard = action.payload.currentBoard;
