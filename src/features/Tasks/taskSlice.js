@@ -84,23 +84,40 @@ const taskSlice = createSlice({
     updateTaskForCol(state, action) {
       const { taskToUpdate, newColumn, droppedIndex } = action.payload;
 
+      let mainTask;
+
       Object.keys(state.tasksData).forEach((board) => {
         if (board === taskToUpdate.taskForBoard) {
           Object.keys(state.tasksData[board]).forEach((boardColumn) => {
             if (boardColumn === taskToUpdate.taskForCol) {
+              const result = state.tasksData[board][boardColumn].find(
+                (task) => task.taskName === taskToUpdate.taskName
+              );
+              if (result) {
+                mainTask = result;
+              }
+            }
+          });
+        }
+      });
+
+      Object.keys(state.tasksData).forEach((board) => {
+        if (board === mainTask.taskForBoard) {
+          Object.keys(state.tasksData[board]).forEach((boardColumn) => {
+            if (boardColumn === mainTask.taskForCol) {
               state.tasksData[board][boardColumn] = state.tasksData[board][
                 boardColumn
-              ].filter((task) => task.taskName !== taskToUpdate.taskName);
+              ].filter((task) => task.taskName !== mainTask.taskName);
             }
 
             if (boardColumn === newColumn) {
               droppedIndex === undefined
                 ? state.tasksData[board][boardColumn].push({
-                    ...taskToUpdate,
+                    ...mainTask,
                     taskForCol: newColumn,
                   })
                 : state.tasksData[board][boardColumn].splice(droppedIndex, 0, {
-                    ...taskToUpdate,
+                    ...mainTask,
                     taskForCol: newColumn,
                   });
             }
@@ -127,6 +144,20 @@ const taskSlice = createSlice({
                 }
               });
             }
+          });
+        }
+      });
+    },
+    updateBoard(state, action) {
+      const { prevBoardName, newBoardName } = action.payload;
+      Object.keys(state.tasksData).forEach((board) => {
+        if (board === prevBoardName) {
+          state.tasksData[newBoardName] = state.tasksData[board];
+          delete state.tasksData[board];
+          Object.keys(state.tasksData[newBoardName]).forEach((boardColumn) => {
+            state.tasksData[newBoardName][boardColumn].forEach((task) => {
+              task.taskForBoard = newBoardName;
+            });
           });
         }
       });
@@ -166,7 +197,6 @@ const taskSlice = createSlice({
     deleteBoardTaskColumn(state, action) {
       const { currentBoard, colToDelete } = action.payload;
 
-      state.tasksData[currentBoard];
       const currentBoardData = Object.assign(
         {},
         current(state.tasksData[currentBoard])
@@ -187,6 +217,7 @@ export const {
   deleteBoardData,
   deleteBoardTaskColumn,
   addNewBoardTaskColumn,
+  updateBoard,
 } = taskSlice.actions;
 
 export default taskSlice.reducer;

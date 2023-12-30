@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { updateBoardName } from "./boardSlice";
 import useOutsideClick from "../../hooks/useOutsideClick";
+import { updateBoard } from "../Tasks/taskSlice";
 
 export default function BoardNameUpdateForm({
   isOpenBoardNameModal,
@@ -34,6 +35,7 @@ export default function BoardNameUpdateForm({
     const { newBoardName } = data;
     if (currentBoard !== newBoardName)
       dispatch(updateBoardName({ prevBoardName: currentBoard, newBoardName }));
+    dispatch(updateBoard({ prevBoardName: currentBoard, newBoardName }));
     setIsOpenBoardNameModal(false);
     reset();
   }
