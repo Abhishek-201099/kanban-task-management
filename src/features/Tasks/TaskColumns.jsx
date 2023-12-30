@@ -1,5 +1,7 @@
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { MdDeleteOutline } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { updateTaskForCol } from "./taskSlice";
 
 export default function TaskColumns({
   currentOpenBoard,
@@ -10,8 +12,25 @@ export default function TaskColumns({
   setIsAddBoardCol,
   tasksData,
 }) {
-  function handleDragEnd() {
-    console.log("dragend happened");
+  const dispatch = useDispatch();
+
+  function handleDragEnd(results) {
+    const { source, destination, type } = results;
+
+    if (!source || !destination || type !== "TASKS") return;
+
+    const draggedTask =
+      currentOpenBoardTaskInfo[source.droppableId.split("-").at(0)][
+        source.index
+      ];
+
+    dispatch(
+      updateTaskForCol({
+        taskToUpdate: draggedTask,
+        newColumn: destination.droppableId.split("-").at(0),
+        droppedIndex: destination.index,
+      })
+    );
   }
 
   const currentOpenBoardTaskInfo = tasksData[currentOpenBoard];
@@ -35,7 +54,7 @@ export default function TaskColumns({
                 <MdDeleteOutline />
               </button>
             </div>
-            <Droppable droppableId={`${boardColumn}--${index}`}>
+            <Droppable droppableId={`${boardColumn}--${index}`} type="TASKS">
               {(provided) => (
                 <div
                   className="task-column-list"
