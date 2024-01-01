@@ -5,6 +5,7 @@ import { getBoards, updateBoardName } from "./boardSlice";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import { updateBoard } from "../Tasks/taskSlice";
 import { useSelector } from "react-redux";
+import { capAndTrim } from "../../helpers/helpers";
 
 export default function BoardNameUpdateForm({
   isOpenBoardNameModal,
@@ -36,8 +37,18 @@ export default function BoardNameUpdateForm({
   function onSubmit(data) {
     const { newBoardName } = data;
     if (currentBoard !== newBoardName) {
-      dispatch(updateBoardName({ prevBoardName: currentBoard, newBoardName }));
-      dispatch(updateBoard({ prevBoardName: currentBoard, newBoardName }));
+      dispatch(
+        updateBoardName({
+          prevBoardName: currentBoard,
+          newBoardName: capAndTrim(newBoardName),
+        })
+      );
+      dispatch(
+        updateBoard({
+          prevBoardName: currentBoard,
+          newBoardName: capAndTrim(newBoardName),
+        })
+      );
     }
     setIsOpenBoardNameModal(false);
     reset();

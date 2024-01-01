@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { addBoard, getBoards } from "./boardSlice";
 import { addNewBoardData } from "../Tasks/taskSlice";
 import { useSelector } from "react-redux";
+import { capAndTrim } from "../../helpers/helpers";
 
 export default function CreateBoardForm({
   isOpenModal,
@@ -39,14 +40,6 @@ export default function CreateBoardForm({
     },
     [isOpenModal, reset]
   );
-
-  function capAndTrim(str) {
-    return str
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ")
-      .trim();
-  }
 
   function onSubmit(data) {
     const { boardName, boardColumns } = data;
