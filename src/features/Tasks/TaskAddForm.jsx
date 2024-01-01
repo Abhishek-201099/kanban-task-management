@@ -81,9 +81,6 @@ export default function TaskAddForm({
         );
 
     if (formFor === "edit" && selectedTask?.taskForCol !== taskCurrentStatus) {
-      console.log(
-        `After task edit, task column have changed from ${selectedTask?.taskForCol} to ${taskCurrentStatus}`
-      );
       dispatch(
         updateTaskForCol({
           taskToUpdate: {

@@ -10,7 +10,6 @@
 }
 
 .light-mode {
-  /* LIGHT MODE */
   --color-title: #000;
   --color-bg-1: #fff;
   --color-bg-2: #f4f7fd;
@@ -19,7 +18,6 @@
 }
 
 .dark-mode {
-  /* DARK MODE */
   --color-title: #fff;
   --color-bg-1: #2b2c37;
   --color-bg-2: #20212c;
@@ -53,8 +51,6 @@ body {
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
-  /* padding-left: 0.5rem;
-  padding-right: 0.5rem; */
   height: 100dvh;
   position: relative;
 
@@ -362,7 +358,6 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* background-color: pink; */
 }
 
 .task-column-heading {
@@ -371,7 +366,6 @@ main {
   font-weight: 700;
   letter-spacing: 1px;
   font-size: 1.2rem;
-  /* background-color: red; */
 }
 
 .task-column-deleteBtn {
@@ -380,7 +374,6 @@ main {
   cursor: pointer;
   visibility: hidden;
   transition: all 0.2s;
-  /* background-color: red; */
   height: 2rem;
   width: 2rem;
 }
@@ -456,20 +449,6 @@ main {
 /***************************************************/
 /***************************************************/
 /***************************************************/
-/* DELETE BOARD COLUMN FORM */
-
-/* .boardCol-delete-container {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.boardCol-delete-container p {
-} */
-
-/***************************************************/
-/***************************************************/
-/***************************************************/
 /* ADD NEW COLUMN FORM */
 
 .new-board-col-form {
@@ -538,6 +517,7 @@ main {
 /***************************************************/
 /***************************************************/
 /* MODAL DROPDOWN MENU */
+
 .modal-dropdown {
   visibility: hidden;
   position: absolute;
@@ -577,7 +557,6 @@ main {
 
 .dropdown-board-list {
   list-style: none;
-  /* background-color: #eee; */
 
   display: flex;
   flex-direction: column;
@@ -659,6 +638,7 @@ main {
 /***************************************************/
 /***************************************************/
 /* CREATE BOARD FORM */
+
 .modal {
   position: fixed;
   top: 0;
@@ -673,7 +653,7 @@ main {
   justify-content: center;
   align-items: center;
 }
-/* start from here bro */
+
 .create-board-form {
   background-color: var(--color-bg-1);
   width: 50rem;
@@ -832,7 +812,6 @@ main {
 
   display: flex;
   flex-direction: column;
-  /* gap: 2rem; */
 }
 
 .taskinfo-context-item,
@@ -1388,7 +1367,6 @@ main {
   left: 0;
   right: 0;
   bottom: 0;
-  /* background-color: hsl(213, 96%, 18%); */
   background-color: var(--color-primary);
   -webkit-transition: 0.4s;
   transition: 0.4s;
@@ -1416,7 +1394,6 @@ input:checked + .slider:before {
   transform: translateX(3rem);
 }
 
-/* Rounded sliders */
 .slider.round {
   border-radius: 3.4rem;
 }
@@ -1431,11 +1408,9 @@ input:checked + .slider:before {
 /* RESPONSIVE */
 
 /* 2xl */
-@media (max-width: 1536px) {
-  /* .container {
-    max-width: 1280px;
-  } */
-}
+/* @media (max-width: 1536px) {
+ 
+} */
 
 /* xl */
 @media (max-width: 1280px) {
@@ -1538,9 +1513,6 @@ input:checked + .slider:before {
 
 /* sm */
 @media (max-width: 640px) {
-  /* .container {
-    max-width: 475px;
-  } */
   .taskaddform-container {
     width: 45rem;
   }

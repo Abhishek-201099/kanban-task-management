@@ -35,8 +35,6 @@ export default function TaskInfo({
       })
     );
 
-    // FIX THE TASK SWITCH ISSUE WHERE CHECKING AIN'T WORKING AFTER SWITCHING COLS
-
     if (selectedTask.taskForCol !== currentStatusValue) {
       dispatch(
         updateTaskForCol({
@@ -56,8 +54,6 @@ export default function TaskInfo({
   }
 
   function handleContextMenuToggle(e) {
-    // FIX OUTSIDE CLICK FOR CONTEXT MENU
-    // e.stopPropagation();
     const rect = e.target.closest("div").getBoundingClientRect();
     setContextMenuPosition({
       x: window.innerWidth - rect.x - rect.width,
