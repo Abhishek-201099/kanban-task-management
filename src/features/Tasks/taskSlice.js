@@ -1,4 +1,5 @@
 import { createSlice, current } from "@reduxjs/toolkit";
+import toast from "react-hot-toast";
 
 const initialTaskState = {
   tasksData: {
@@ -58,6 +59,7 @@ const taskSlice = createSlice({
           });
         }
       });
+      toast.success(`Successfully added new task`);
     },
     editTask(state, action) {
       const { prevTask, updatedTask } = action.payload;
@@ -80,6 +82,8 @@ const taskSlice = createSlice({
           });
         }
       });
+
+      toast.success(`Successfully edited task`);
     },
     updateTaskForCol(state, action) {
       const { taskToUpdate, newColumn, droppedIndex } = action.payload;
@@ -176,6 +180,7 @@ const taskSlice = createSlice({
           });
         }
       });
+      toast.success(`Successfully deleted task`);
     },
     addNewBoardData(state, action) {
       const { boardName, boardColumns } = action.payload;

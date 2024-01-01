@@ -1,14 +1,16 @@
 import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { addBoard } from "./boardSlice";
+import { addBoard, getBoards } from "./boardSlice";
 import { addNewBoardData } from "../Tasks/taskSlice";
+import { useSelector } from "react-redux";
 
 export default function CreateBoardForm({
   isOpenModal,
   mainEl,
   setIsOpenModal,
 }) {
+  const boardsData = useSelector(getBoards);
   const dispatch = useDispatch();
   const {
     register,
@@ -38,10 +40,25 @@ export default function CreateBoardForm({
     [isOpenModal, reset]
   );
 
+  function capAndTrim(str) {
+    return str
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ")
+      .trim();
+  }
+
   function onSubmit(data) {
     const { boardName, boardColumns } = data;
-    dispatch(addBoard({ boardName, boardColumns }));
-    dispatch(addNewBoardData({ boardName, boardColumns }));
+    dispatch(
+      addBoard({
+        boardName: capAndTrim(boardName),
+        boardColumns,
+      })
+    );
+    dispatch(
+      addNewBoardData({ boardName: capAndTrim(boardName), boardColumns })
+    );
     reset();
     setIsOpenModal(false);
   }
@@ -65,7 +82,16 @@ export default function CreateBoardForm({
             className={`${
               errors?.boardName?.message ? "board-input-error" : ""
             }`}
-            {...register("boardName", { required: "This field is required" })}
+            {...register("boardName", {
+              required: "This field is required",
+              validate: (value) => {
+                const board = boardsData.find(
+                  (board) =>
+                    board.boardName.toLowerCase() === value.toLowerCase().trim()
+                );
+                if (board) return "Board name already exists";
+              },
+            })}
           />
           {errors?.boardName?.message && (
             <p className="board-form-error">{errors?.boardName?.message}</p>

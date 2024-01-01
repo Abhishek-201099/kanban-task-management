@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import toast from "react-hot-toast";
 
 const initialBoardState = {
   boardsData: [
@@ -34,6 +35,9 @@ const boardSlice = createSlice({
       ];
 
       if (!state.currentBoard) state.currentBoard = action.payload.boardName;
+      toast.success(
+        `Successfully added new board "${action.payload.boardName}"`
+      );
     },
     addBoardColumn(state, action) {
       state.boardsData.forEach((board) => {
@@ -44,6 +48,9 @@ const boardSlice = createSlice({
           ];
         }
       });
+      toast.success(
+        `Successfully added new board column "${action.payload.newBoardColumn}"`
+      );
     },
     updateBoardName(state, action) {
       const boardToUpdate = state.boardsData.find(
@@ -53,6 +60,9 @@ const boardSlice = createSlice({
         boardToUpdate.boardName = action.payload.newBoardName;
         state.currentBoard = action.payload.newBoardName;
       }
+      toast.success(
+        `Successfully updated board name "${action.payload.newBoardName}"`
+      );
     },
     updateBoardColumnName(state, action) {
       const boardToUpdate = state.boardsData.find(
@@ -65,6 +75,10 @@ const boardSlice = createSlice({
         );
         if (colToUpdate) colToUpdate.columnName = action.payload.newColName;
       }
+
+      toast.success(
+        `Successfully updated board column name "${action.payload.newColName}"`
+      );
     },
     deleteBoardColumn(state, action) {
       const boardToUpdate = state.boardsData.find(
@@ -75,12 +89,18 @@ const boardSlice = createSlice({
           (col) => col.columnName !== action.payload.colToDelete
         );
       }
+      toast.success(
+        `Successfully deleted board column "${action.payload.colToDelete}"`
+      );
     },
     deleteBoard(state, action) {
       state.boardsData = state.boardsData.filter(
         (board) => board.boardName !== action.payload.currentBoard
       );
       state.currentBoard = state.boardsData.at(0)?.boardName || "";
+      toast.success(
+        `Successfully deleted board "${action.payload.currentBoard}"`
+      );
     },
     setCurrentOpenBoard(state, action) {
       state.currentBoard = action.payload.currentBoard;

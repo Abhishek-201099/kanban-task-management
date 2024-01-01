@@ -3,7 +3,7 @@ import useOutsideClick from "../../hooks/useOutsideClick";
 import { useSelector } from "react-redux";
 import { getCurrentOpenBoardData } from "../Boards/boardSlice";
 import { useDispatch } from "react-redux";
-import { addTask, editTask, updateTaskForCol } from "./taskSlice";
+import { addTask, editTask, getTasksData, updateTaskForCol } from "./taskSlice";
 
 export default function TaskAddForm({
   setIsOpenAddTaskForm,
@@ -11,6 +11,7 @@ export default function TaskAddForm({
   selectedTask = {},
   setIsOpenTaskInfo,
 }) {
+  const tasksData = useSelector(getTasksData);
   const dispatch = useDispatch();
   const currentOpenBoardData = useSelector(getCurrentOpenBoardData);
   const {
@@ -58,7 +59,7 @@ export default function TaskAddForm({
       ? dispatch(
           addTask({
             task: {
-              taskName,
+              taskName: taskName.trim(),
               taskDescription,
               taskForCol: taskCurrentStatus,
               taskForBoard: currentOpenBoardData.boardName,
@@ -70,7 +71,7 @@ export default function TaskAddForm({
           editTask({
             prevTask: selectedTask,
             updatedTask: {
-              taskName,
+              taskName: taskName.trim(),
               taskDescription,
               taskForCol: selectedTask.taskForCol,
               taskForBoard: currentOpenBoardData.boardName,
@@ -101,6 +102,23 @@ export default function TaskAddForm({
     setIsOpenAddTaskForm(false);
   }
 
+  function checkExistingTask(taskName) {
+    let result;
+    Object.keys(tasksData).forEach((board) => {
+      if (board === currentOpenBoardData.boardName) {
+        Object.keys(tasksData[board]).forEach((boardColumn) => {
+          tasksData[board][boardColumn].forEach((task) => {
+            if (task.taskName.toLowerCase() === taskName.toLowerCase()) {
+              result = task;
+            }
+          });
+        });
+      }
+    });
+    if (!result) return false;
+    return true;
+  }
+
   return (
     <div className="modal">
       <div ref={ref} className="taskaddform-container">
@@ -120,6 +138,10 @@ export default function TaskAddForm({
               }`}
               {...register("taskName", {
                 required: "This field is required",
+                validate: (value) => {
+                  if (checkExistingTask(value))
+                    return "Task already exist, try with different task name";
+                },
               })}
             />
             {errors?.taskName?.message && (

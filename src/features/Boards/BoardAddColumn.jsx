@@ -1,10 +1,12 @@
 import { useForm } from "react-hook-form";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import { useDispatch } from "react-redux";
-import { addBoardColumn } from "./boardSlice";
+import { addBoardColumn, getBoards } from "./boardSlice";
 import { addNewBoardTaskColumn } from "../Tasks/taskSlice";
+import { useSelector } from "react-redux";
 
 export default function BoardAddColumn({ setIsAddBoardCol, currentOpenBoard }) {
+  const boardsData = useSelector(getBoards);
   const dispatch = useDispatch();
   const {
     register,
@@ -25,13 +27,13 @@ export default function BoardAddColumn({ setIsAddBoardCol, currentOpenBoard }) {
     dispatch(
       addBoardColumn({
         currentBoard: currentOpenBoard,
-        newBoardColumn,
+        newBoardColumn: newBoardColumn.trim(),
       })
     );
     dispatch(
       addNewBoardTaskColumn({
         currentBoard: currentOpenBoard,
-        newBoardColumn,
+        newBoardColumn: newBoardColumn.trim(),
       })
     );
     reset();
@@ -55,6 +57,19 @@ export default function BoardAddColumn({ setIsAddBoardCol, currentOpenBoard }) {
             }`}
             {...register("newBoardColumn", {
               required: "This field is required",
+              validate: (value) => {
+                let result;
+                boardsData.forEach((board) => {
+                  if (board.boardName === currentOpenBoard) {
+                    result = board.boardColumns.find(
+                      (boardColumn) =>
+                        boardColumn.columnName.toLowerCase() ===
+                        value.toLowerCase().trim()
+                    );
+                  }
+                });
+                if (result) return "Column already exists";
+              },
             })}
           />
           {errors?.newBoardColumn?.message && (

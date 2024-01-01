@@ -1,15 +1,17 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { updateBoardName } from "./boardSlice";
+import { getBoards, updateBoardName } from "./boardSlice";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import { updateBoard } from "../Tasks/taskSlice";
+import { useSelector } from "react-redux";
 
 export default function BoardNameUpdateForm({
   isOpenBoardNameModal,
   currentBoard,
   setIsOpenBoardNameModal,
 }) {
+  const boardsData = useSelector(getBoards);
   const dispatch = useDispatch();
   const {
     register,
@@ -33,9 +35,10 @@ export default function BoardNameUpdateForm({
 
   function onSubmit(data) {
     const { newBoardName } = data;
-    if (currentBoard !== newBoardName)
+    if (currentBoard !== newBoardName) {
       dispatch(updateBoardName({ prevBoardName: currentBoard, newBoardName }));
-    dispatch(updateBoard({ prevBoardName: currentBoard, newBoardName }));
+      dispatch(updateBoard({ prevBoardName: currentBoard, newBoardName }));
+    }
     setIsOpenBoardNameModal(false);
     reset();
   }
@@ -56,6 +59,13 @@ export default function BoardNameUpdateForm({
             placeholder="Board name..."
             {...register("newBoardName", {
               required: "This field is required",
+              validate: (value) => {
+                const board = boardsData.find(
+                  (board) =>
+                    board.boardName.toLowerCase() === value.toLowerCase()
+                );
+                if (board) return "Board name already exists";
+              },
             })}
             className={`${
               errors?.newBoardName?.message ? "boardName-input-error" : ""
