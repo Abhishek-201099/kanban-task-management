@@ -14,6 +14,7 @@ export default function useBoardAside() {
   const currentOpenBoard = useSelector(getCurrentOpenBoard);
   const [currentBoard, setCurrentBoard] = useState(currentOpenBoard);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isOpenBoardAside, setIsOpenBoardAside] = useState(true);
 
   useEffect(
     function () {
@@ -28,5 +29,7 @@ export default function useBoardAside() {
     setCurrentBoard,
     isOpenModal,
     setIsOpenModal,
+    isOpenBoardAside,
+    setIsOpenBoardAside,
   };
 }

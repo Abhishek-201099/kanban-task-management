@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import useBoardAside from "./useBoardAside";
 import { setCurrentOpenBoard } from "./boardSlice";
+import DarkModeToggle from "../DarkMode/DarkModeToggle";
 
 export default function DropdownBoardModal({
   setIsOpenDropDown,
@@ -59,7 +60,9 @@ export default function DropdownBoardModal({
           <span>+ Create New Board</span>
         </p>
 
-        <div className="dropdown-toggle">darkmode toggle</div>
+        <div className="dropdown-toggle">
+          <DarkModeToggle />
+        </div>
       </div>
     </div>
   );

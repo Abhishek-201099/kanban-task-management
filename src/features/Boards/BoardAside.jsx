@@ -11,6 +11,8 @@ export default function BoardAside() {
     setCurrentBoard,
     isOpenModal,
     setIsOpenModal,
+    isOpenBoardAside,
+    setIsOpenBoardAside,
   } = useBoardAside();
 
   const ref = useOutsideClick(handleOutsideClick, true);
@@ -18,6 +20,18 @@ export default function BoardAside() {
   function handleOutsideClick() {
     setIsOpenModal(false);
   }
+
+  if (!isOpenBoardAside)
+    return (
+      <div
+        className="aside-show-sidebar"
+        onClick={() =>
+          setIsOpenBoardAside((isOpenBoardAside) => !isOpenBoardAside)
+        }
+      >
+        <img src="/icon-show-sidebar.svg" alt="show sidebar icon" />
+      </div>
+    );
 
   return (
     <div className="container-aside">
@@ -34,7 +48,7 @@ export default function BoardAside() {
         setIsOpenModal={setIsOpenModal}
       />
 
-      <AsideToggles />
+      <AsideToggles setIsOpenBoardAside={setIsOpenBoardAside} />
     </div>
   );
 }

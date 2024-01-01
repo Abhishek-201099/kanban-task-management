@@ -1,12 +1,19 @@
-export default function AsideToggles() {
+import DarkModeToggle from "../DarkMode/DarkModeToggle";
+
+export default function AsideToggles({ setIsOpenBoardAside }) {
   return (
     <div className="aside-toggles">
-      <div className="aside-toggle-darkmode">darkmodetoggle</div>
-      <div className="aside-toggle-hide">
+      <DarkModeToggle />
+      <div
+        className="aside-toggle-hide"
+        onClick={() =>
+          setIsOpenBoardAside((isOpenBoardAside) => !isOpenBoardAside)
+        }
+      >
         <span>
           <img src="/icon-hide-sidebar.svg" alt="hide sidebar icon" />
         </span>
-        <span>Hide Sidebar</span>
+        <p>Hide Sidebar</p>
       </div>
     </div>
   );

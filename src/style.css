@@ -1,15 +1,53 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
 
-:root {
+/* :root,
+:root.light-mode {
   --color-primary: #635fc7;
   --color-primary-light: #736fcd;
   --color-primary-light-2: #e0dff4;
 
   --color-secondary: #141328;
+  --color-secondary-1: #fff;
   --color-secondary-2: #828fa3;
   --color-secondary-3: #efeff9;
+
   --color-secondary-4: #e0dff4;
+
   --color-secondary-5: #ea5555;
+}
+
+.dark-mode {
+  --color-secondary: #fff;
+  --color-secondary-1: #2b2c37;
+  --color-secondary-3: #20212c;
+  --color-secondary-4: #2b2c37;
+} */
+
+:root {
+  --color-primary: #635fc7;
+  --color-primary-light: #736fcd;
+  --color-bg-light: #efeff9;
+  --color-subtitle: #828fa3;
+  --color-red: #ea5555;
+  --color-input: #141328;
+}
+
+.light-mode {
+  /* LIGHT MODE */
+  --color-title: #000;
+  --color-bg-1: #fff;
+  --color-bg-2: #f4f7fd;
+  --color-bg-3: #e0dff4;
+  --color-bg-4: #efeff9;
+}
+
+.dark-mode {
+  /* DARK MODE */
+  --color-title: #fff;
+  --color-bg-1: #2b2c37;
+  --color-bg-2: #20212c;
+  --color-bg-3: #2b2c37;
+  --color-bg-4: #20212c;
 }
 
 *,
@@ -31,7 +69,7 @@ body {
   font-family: "Plus Jakarta Sans", sans-serif;
   line-height: 1;
   font-size: 1.6rem;
-  color: var(--color-secondary);
+  color: var(--color-title);
 }
 
 .container {
@@ -58,7 +96,7 @@ main {
 /* NAVBAR */
 
 .navbar {
-  background-color: #fff;
+  background-color: var(--color-bg-1);
   padding: 1rem;
 
   display: flex;
@@ -102,10 +140,6 @@ main {
   align-items: center;
 }
 
-.navbar .nav-items .nav-board div:hover {
-  background-color: #e0dff4;
-}
-
 .navbar .nav-items .nav-board div img {
   height: 1rem;
 }
@@ -113,7 +147,6 @@ main {
 .navbar .nav-items .nav-board-name {
   font-size: 2.4rem;
   font-weight: 600;
-  color: var(--color-secondary);
   padding: 0.4rem;
 
   white-space: nowrap;
@@ -147,7 +180,7 @@ main {
 }
 
 .nav-btns .btn-context-menu {
-  background-color: #fff;
+  background: none;
   border: none;
   cursor: pointer;
   padding: 1rem;
@@ -165,6 +198,7 @@ main {
 .container-aside {
   width: 26rem;
   padding-top: 2rem;
+  background-color: var(--color-bg-1);
 
   display: flex;
   flex-direction: column;
@@ -178,7 +212,7 @@ main {
 
 .aside-boards .aside-boards-count {
   text-transform: uppercase;
-  color: var(--color-secondary-2);
+  color: var(--color-subtitle);
   font-weight: 700;
   letter-spacing: 1px;
   font-size: 1.2rem;
@@ -197,7 +231,7 @@ main {
 
 .aside-boards-list li {
   font-weight: 700;
-  color: var(--color-secondary-2);
+  color: var(--color-subtitle);
   text-transform: capitalize;
   padding: 2rem;
   border-top-right-radius: 3rem;
@@ -216,7 +250,7 @@ main {
 }
 
 .aside-boards-list li:hover {
-  background-color: var(--color-secondary-3);
+  background-color: var(--color-bg-light);
 }
 
 .aside-boards-list li:hover .aside-board-name {
@@ -229,7 +263,7 @@ main {
 }
 
 .aside-boards-list li.active-board:hover {
-  background-color: var(--color-secondary-3);
+  background-color: var(--color-bg-light);
   color: var(--color-primary-light);
 }
 
@@ -253,7 +287,7 @@ main {
 }
 
 .aside-add-board:hover {
-  background-color: var(--color-secondary-3);
+  background-color: var(--color-bg-light);
 }
 
 .aside-add-board span img {
@@ -264,6 +298,53 @@ main {
 .aside-toggles {
   margin-top: auto;
   margin-bottom: 8rem;
+  padding: 0rem 1rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.aside-toggle-hide {
+  padding: 1.4rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.aside-toggle-hide:hover {
+  background-color: var(--color-bg-light);
+}
+
+.aside-toggle-hide:hover p {
+  color: var(--color-primary-light);
+}
+
+.aside-toggle-hide p {
+  color: var(--color-title);
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.aside-show-sidebar {
+  position: absolute;
+  left: 0;
+  bottom: 8rem;
+  padding: 1.4rem 2rem;
+  border-top-right-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  background-color: var(--color-primary);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.aside-show-sidebar:hover {
+  background-color: var(--color-primary-light);
 }
 
 /***************************************************/
@@ -274,7 +355,7 @@ main {
 .container-board {
   flex: 1;
   padding: 2rem;
-  background-color: var(--color-secondary-3);
+  background-color: var(--color-bg-2);
   overflow: auto;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none;
@@ -289,7 +370,7 @@ main {
 }
 
 .container-board::-webkit-scrollbar-thumb {
-  background-color: var(--color-secondary-2);
+  background-color: var(--color-subtitle);
 }
 
 .task-column {
@@ -302,15 +383,18 @@ main {
 
 .task-column-heading-container {
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  /* background-color: pink; */
 }
 
 .task-column-heading {
   text-transform: uppercase;
-  color: var(--color-secondary-2);
+  color: var(--color-subtitle);
   font-weight: 700;
   letter-spacing: 1px;
   font-size: 1.2rem;
+  /* background-color: red; */
 }
 
 .task-column-deleteBtn {
@@ -319,6 +403,9 @@ main {
   cursor: pointer;
   visibility: hidden;
   transition: all 0.2s;
+  /* background-color: red; */
+  height: 2rem;
+  width: 2rem;
 }
 
 .task-column:hover .task-column-deleteBtn {
@@ -328,11 +415,10 @@ main {
 .task-column-deleteBtn svg {
   height: 100%;
   width: 100%;
-  color: var(--color-secondary-5);
+  color: var(--color-red);
 }
 
 .task-column-list {
-  /* background-color: beige; */
   flex: 1;
 
   display: flex;
@@ -342,7 +428,7 @@ main {
 
 .task-column-list-item {
   padding: 2rem;
-  background-color: #fff;
+  background-color: var(--color-bg-1);
   border-radius: 6px;
   box-shadow: 0 4px 6px rgba(54, 78, 126, 0.102);
   transition: all 0.3s;
@@ -361,7 +447,7 @@ main {
   letter-spacing: 1px;
   font-size: 1.2rem;
   font-weight: 700;
-  color: var(--color-secondary-2);
+  color: var(--color-subtitle);
 }
 
 .task-column-list-item:hover p:first-child {
@@ -369,7 +455,7 @@ main {
 }
 
 .add-new-column {
-  background-color: var(--color-secondary-4);
+  background-color: var(--color-bg-3);
   border-radius: 6px;
   cursor: pointer;
 
@@ -382,7 +468,7 @@ main {
   font-size: 2.4rem;
   text-transform: capitalize;
   font-weight: 600;
-  color: var(--color-secondary-2);
+  color: var(--color-subtitle);
   transition: all 0.3s;
 }
 
@@ -411,7 +497,7 @@ main {
 
 .new-board-col-form {
   width: 40rem;
-  background-color: #fff;
+  background-color: var(--color-bg-1);
   padding: 2rem;
   border-radius: 6px;
 
@@ -429,14 +515,14 @@ main {
 .new-board-col-input label {
   font-size: 1.6rem;
   font-weight: 600;
-  color: var(--color-secondary-2);
+  color: var(--color-subtitle);
 }
 
 .new-board-col-input input {
   border: 1px solid #ddd;
   padding: 1.2rem;
   border-radius: 0.5rem;
-  color: var(--color-secondary);
+  color: var(--color-input);
 }
 
 .new-board-col-input input:focus {
@@ -451,7 +537,7 @@ main {
 .new-board-col-input p {
   font-size: 1.3rem;
   font-weight: 500;
-  color: var(--color-secondary-5);
+  color: var(--color-red);
 }
 
 .new-board-col-form button {
@@ -491,7 +577,7 @@ main {
 }
 
 .dropdown-container {
-  background-color: #fff;
+  background-color: var(--color-bg-1);
   width: 70%;
   border-radius: 6px;
   margin-top: 4rem;
@@ -505,7 +591,7 @@ main {
 
 .dropdown-board-count {
   text-transform: uppercase;
-  color: var(--color-secondary-2);
+  color: var(--color-subtitle);
   font-weight: 700;
   letter-spacing: 1px;
   font-size: 1.2rem;
@@ -523,7 +609,7 @@ main {
 
 .dropdown-board-list li {
   font-weight: 700;
-  color: var(--color-secondary-2);
+  color: var(--color-subtitle);
   text-transform: capitalize;
   padding: 2rem;
   border-top-right-radius: 3rem;
@@ -536,7 +622,7 @@ main {
 }
 
 .dropdown-board-list li:hover {
-  background-color: var(--color-secondary-3);
+  background-color: var(--color-bg-light);
 }
 
 .dropdown-board-list li .dropdown-board-name {
@@ -555,7 +641,7 @@ main {
 }
 
 .dropdown-board-list li.active-board:hover {
-  background-color: var(--color-secondary-3);
+  background-color: var(--color-bg-light);
   color: var(--color-primary-light);
 }
 
@@ -580,7 +666,7 @@ main {
 }
 
 .dropdown-add-board:hover {
-  background-color: var(--color-secondary-3);
+  background-color: var(--color-bg-light);
 }
 
 .dropdown-add-board span img {
@@ -610,9 +696,9 @@ main {
   justify-content: center;
   align-items: center;
 }
-
+/* start from here bro */
 .create-board-form {
-  background-color: #fff;
+  background-color: var(--color-bg-1);
   width: 50rem;
   padding: 4rem;
   border-radius: 6px;
@@ -625,7 +711,7 @@ main {
 .board-form-heading {
   font-size: 2rem;
   font-weight: 700;
-  color: var(--color-secondary);
+  color: var(--color-title);
 }
 
 .board-form-name {
@@ -677,7 +763,7 @@ main {
 .column-item-input button {
   padding: 1rem;
   border: none;
-  background-color: #fff;
+  background-color: var(--color-bg-1);
   cursor: pointer;
 }
 
@@ -686,7 +772,7 @@ main {
   border: 1px solid #ddd;
   padding: 1.2rem;
   border-radius: 0.5rem;
-  color: var(--color-secondary);
+  color: var(--color-input);
   font-family: inherit;
 }
 
@@ -694,7 +780,7 @@ main {
 .board-form-name label {
   font-size: 1.4rem;
   font-weight: 600;
-  color: var(--color-secondary-2);
+  color: var(--color-subtitle);
 }
 
 .column-item-input input:focus,
@@ -711,16 +797,16 @@ main {
 .board-form-error {
   font-size: 1.3rem;
   font-weight: 500;
-  color: var(--color-secondary-5);
+  color: var(--color-red);
   margin-top: 0.4rem;
 }
 
 .board-input-error {
-  outline: 1px solid var(--color-secondary-5);
+  outline: 1px solid var(--color-red);
 }
 
 .board-input-error:focus {
-  outline: 1px solid var(--color-secondary-5) !important;
+  outline: 1px solid var(--color-red) !important;
 }
 
 .board-form-btns {
@@ -759,7 +845,7 @@ main {
 
 .taskinfo-context-menu,
 .navbar-context-menu {
-  background-color: #fff;
+  background-color: var(--color-bg-1);
   position: absolute;
   border-radius: 6px;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
@@ -780,17 +866,18 @@ main {
   padding: 1.4rem 2rem;
 
   cursor: pointer;
-  color: var(--color-secondary);
+  color: var(--color-title);
 }
 
 .taskinfo-context-item:hover,
 .navbar-context-item:hover {
-  background-color: var(--color-secondary-3);
+  background-color: var(--color-bg-light);
+  color: var(--color-input);
 }
 
 .taskinfo-context-item:last-child,
 .navbar-context-item:last-child {
-  color: var(--color-secondary-5);
+  color: var(--color-red);
 }
 
 /***************************************************/
@@ -798,7 +885,7 @@ main {
 /***************************************************/
 /* BOARD NAME UPDATE FORM */
 .boardName-update-form {
-  background-color: #fff;
+  background-color: var(--color-bg-1);
   padding: 2rem;
   width: 40rem;
   border-radius: 6px;
@@ -811,7 +898,7 @@ main {
 .boardName-update-form label {
   font-size: 1.4rem;
   font-weight: 600;
-  color: var(--color-secondary-2);
+  color: var(--color-subtitle);
 }
 
 .boardName-update-form .boardName-input-container {
@@ -824,7 +911,7 @@ main {
   border: 1px solid #ddd;
   padding: 1.2rem;
   border-radius: 0.5rem;
-  color: var(--color-secondary);
+  color: var(--color-input);
 }
 
 .boardName-input-container input:focus {
@@ -839,15 +926,15 @@ main {
 .boardName-input-container p {
   font-size: 1.3rem;
   font-weight: 500;
-  color: var(--color-secondary-5);
+  color: var(--color-red);
 }
 
 .boardName-input-error {
-  outline: 1px solid var(--color-secondary-5);
+  outline: 1px solid var(--color-red);
 }
 
 .boardName-input-error:focus {
-  outline: 1px solid var(--color-secondary-5) !important;
+  outline: 1px solid var(--color-red) !important;
 }
 
 .boardName-update-form button {
@@ -875,7 +962,7 @@ main {
 .taskinfo-delete-container,
 .boardCol-delete-container,
 .boardDelete-form-container {
-  background-color: #fff;
+  background-color: var(--color-bg-1);
   width: 50rem;
   padding: 2rem 4rem;
   border-radius: 6px;
@@ -893,7 +980,7 @@ main {
   font-weight: 600;
   letter-spacing: 1px;
   line-height: 1.6;
-  color: var(--color-secondary);
+  color: var(--color-title);
 }
 
 .taskinfo-delete-btns,
@@ -921,7 +1008,7 @@ main {
 .taskinfo-delete-btns button:first-child,
 .boardCol-delete-btns button:first-child,
 .boardDelete-btns button:first-child {
-  background-color: var(--color-secondary-5);
+  background-color: var(--color-red);
   color: #fff;
 }
 
@@ -935,13 +1022,15 @@ main {
 .boardCol-delete-btns button:last-child,
 .boardDelete-btns button:last-child {
   border: 1px solid #ddd;
-  background-color: #fff;
+  background-color: var(--color-bg-1);
+  color: var(--color-title);
 }
 
 .taskinfo-delete-btns button:last-child:hover,
 .boardCol-delete-btns button:last-child:hover,
 .boardDelete-btns button:last-child:hover {
   background-color: #eee;
+  color: var(--color-input);
 }
 
 /***************************************************/
@@ -950,7 +1039,7 @@ main {
 /* TASK ADD FORM */
 
 .taskaddform-container {
-  background-color: #fff;
+  background-color: var(--color-bg-1);
   overflow-y: auto;
   max-height: 95%;
   padding: 4rem 3rem;
@@ -964,11 +1053,11 @@ main {
 .taskaddform-container::-webkit-scrollbar {
   /* WebKit */
   width: 5px;
-  background-color: #fff;
+  background-color: var(--color-bg-1);
 }
 
 .taskaddform-container::-webkit-scrollbar-thumb {
-  background-color: var(--color-secondary-2);
+  background-color: var(--color-subtitle);
 }
 
 .task-add-form {
@@ -980,7 +1069,7 @@ main {
 .task-form-heading {
   font-size: 2rem;
   font-weight: 700;
-  color: var(--color-secondary);
+  color: var(--color-title);
 }
 
 .task-form-description textarea {
@@ -1002,7 +1091,7 @@ main {
 .task-form-name label {
   font-size: 1.4rem;
   font-weight: 600;
-  color: var(--color-secondary-2);
+  color: var(--color-subtitle);
 }
 
 .task-form-currentStatus select,
@@ -1012,7 +1101,7 @@ main {
   border: 1px solid #ddd;
   padding: 1.2rem;
   border-radius: 0.5rem;
-  color: var(--color-secondary);
+  color: var(--color-input);
   font-family: inherit;
 }
 
@@ -1039,7 +1128,7 @@ main {
 .task-form-error {
   font-size: 1.3rem;
   font-weight: 500;
-  color: var(--color-secondary-5);
+  color: var(--color-red);
   margin-top: 0.4rem;
 }
 
@@ -1085,7 +1174,7 @@ main {
 .subtask-item-input button {
   padding: 1rem;
   border: none;
-  background-color: #fff;
+  background-color: var(--color-bg-1);
   cursor: pointer;
 }
 
@@ -1117,7 +1206,7 @@ main {
 /***************************************************/
 /* TASK INFO WINDOW*/
 .taskinfo-container {
-  background-color: #fff;
+  background-color: var(--color-bg-1);
   padding: 2rem;
   width: 50rem;
   border-radius: 6px;
@@ -1135,7 +1224,7 @@ main {
 
 .taskinfo-taskName {
   font-size: 2rem;
-  color: var(--color-secondary);
+  color: var(--color-title);
   font-weight: 700;
 }
 
@@ -1149,7 +1238,7 @@ main {
 
 .taskinfo-description {
   font-size: 1.4rem;
-  color: var(--color-secondary-2);
+  color: var(--color-subtitle);
 }
 
 .taskinfo-currentStatus {
@@ -1162,14 +1251,14 @@ main {
 .taskinfo-currentStatus label {
   font-size: 1.4rem;
   font-weight: 600;
-  color: var(--color-secondary-2);
+  color: var(--color-subtitle);
 }
 
 .taskinfo-currentStatus select {
   border: 1px solid #ddd;
   padding: 1.2rem;
   border-radius: 0.5rem;
-  color: var(--color-secondary);
+  color: var(--color-input);
   font-family: inherit;
 }
 
@@ -1201,7 +1290,7 @@ main {
 }
 
 .taskinfo-subtasks-list::-webkit-scrollbar-thumb {
-  background-color: var(--color-secondary-3);
+  background-color: var(--color-bg-light);
 }
 
 .taskinfo-subtasks {
@@ -1215,7 +1304,7 @@ main {
 }
 
 .taskinfo-subtasks-item {
-  background-color: var(--color-secondary-3);
+  background-color: var(--color-bg-4);
   padding: 1rem;
   border-radius: 6px;
 
@@ -1285,6 +1374,78 @@ main {
 
 .page-not-found-container button:hover {
   border-bottom: 1px solid #000;
+}
+
+/***************************************************/
+/***************************************************/
+/***************************************************/
+/* DARK MODE TOGGLE */
+.aside-toggle-darkmode {
+  background-color: var(--color-bg-2);
+  padding: 1.4rem 1rem;
+  border-radius: 6px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 6rem;
+  height: 2.5rem;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* background-color: hsl(213, 96%, 18%); */
+  background-color: var(--color-primary);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.6rem;
+  width: 1.6rem;
+  left: 0.8rem;
+  bottom: 0.5rem;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(2rem);
+  -ms-transform: translateX(2rem);
+  transform: translateX(3rem);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 3.4rem;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }
 
 /***************************************************/
@@ -1360,6 +1521,10 @@ main {
     display: none;
   }
 
+  .aside-show-sidebar {
+    display: none;
+  }
+
   .modal-dropdown {
     visibility: unset;
   }
@@ -1399,6 +1564,9 @@ main {
   /* .container {
     max-width: 475px;
   } */
+  .taskaddform-container {
+    width: 45rem;
+  }
 }
 
 /* xs */
@@ -1409,5 +1577,34 @@ main {
 
   .navbar .nav-items .nav-btns {
     gap: 1rem;
+  }
+
+  .taskaddform-container {
+    max-height: 85%;
+    width: 35rem;
+  }
+
+  .taskinfo-container {
+    width: 38rem;
+  }
+
+  .taskinfo-delete-container,
+  .boardCol-delete-container,
+  .boardDelete-form-container {
+    width: 40rem;
+  }
+
+  .taskinfo-delete-container p,
+  .boardCol-delete-container p,
+  .boardDelete-form-container p {
+    font-size: 1.6rem;
+  }
+
+  .boardDelete-btns button {
+    font-size: 1.4rem;
+  }
+
+  .dropdown-container {
+    width: 80%;
   }
 }
