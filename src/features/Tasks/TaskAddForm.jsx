@@ -136,9 +136,15 @@ export default function TaskAddForm({
               {...register("taskName", {
                 required: "This field is required",
                 validate: (value) => {
-                  if (formFor !== "edit" && checkExistingTask(value)) {
+                  if (
+                    formFor === "edit" &&
+                    selectedTask.taskName !== value &&
+                    checkExistingTask(value)
+                  )
                     return "Task already exist, try with different task name";
-                  }
+
+                  if (formFor === "add" && checkExistingTask(value))
+                    return "Task already exist, try with different task name";
                 },
               })}
             />
